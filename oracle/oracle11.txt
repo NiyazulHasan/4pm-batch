@@ -1,0 +1,625 @@
+To see the output in PL/SQL we need to use below command.
+ex:
+	SQL> set   serveroutput  on 
+
+
+Using PL/SQL we can perform DRL operations.
+
+To perform DRL operations in PL/SQL we need to use "into" clause.
+
+
+Q) Write a PL/SQL program to display employee name whose employee id is 201?
+
+
+	DECLARE 
+	L_ename varchar2(10);
+	BEGIN
+	select ename into L_ename from emp where eid=201;
+	DBMS_OUTPUT.PUT_LINE(L_ename);
+	END;
+	/
+
+
+Q) Write a PL/SQL program to display employee name and employee salary whose employee is is 202?
+
+
+	DECLARE 
+	L_ename varchar2(10);
+	L_esal  number(10,2);
+	BEGIN
+	select ename,esal into L_ename,L_esal from emp where eid=202;
+	DBMS_OUTPUT.PUT_LINE(L_ename||' '||L_esal);
+	END;
+	/
+
+Percentage(%) TYPE attribute
+=============================
+It is used to declare a variable with respect to the column.
+
+syntax:
+------
+	variable_name   table_name.col_name%TYPE;
+
+
+
+Q) Write a PL/SQL program to display employee name and employee salary whose employee is is 202?
+
+
+	DECLARE 
+	L_ename emp.ename%TYPE;
+	L_esal  emp.esal%TYPE;
+	BEGIN
+	select ename,esal into L_ename,L_esal from emp where eid=202;
+	DBMS_OUTPUT.PUT_LINE(L_ename||' '||L_esal);
+	END;
+	/
+
+
+Percentage(%) ROWTYPE attribute
+================================
+It is used to declare a local variable which holds complete row of a table.
+
+ROWTYPE variable we can't print directly.
+
+We can display the values from RWOTYPE variable by using <variable_name>.<column_name>.
+
+
+Q) Write a PL/SQL program to display employee information whose employee id is 203?
+
+	DECLARE 
+	A emp%ROWTYPE;
+	BEGIN
+	select * into A from emp where eid=203;
+DBMS_OUTPUT.PUT_LINE(A.eid||' '||A.ename||' '||A.esal||' '||A.deptno||' '||A.job||' '||A.comm);
+	END;
+	/
+
+Control statements
+===================
+We have three types of control statements in PL/SQL.
+
+1) IF THEN 
+
+2) IF THEN ELSE 
+
+3) IF THEN ELSIF THEN 
+
+
+1) IF THEN STMT 
+--------------
+It will evaluate the code only if our condition is true.
+
+	DECLARE 
+	A  number:=5000;
+	BEGIN
+
+	IF A>2000 THEN 
+	DBMS_OUTPUT.PUT_LINE('It is large');
+	END IF;
+
+	END;
+	/
+
+
+2) IF THEN ELSE 
+---------------
+It will evaluate the code either our condition is true or false.
+
+ex:
+	DECLARE 
+	A number:=5000;
+	BEGIN
+	
+	IF A>8000 THEN 
+	DBMS_OUTPUT.PUT_LINE('It is large');
+	ELSE
+	DBMS_OUTPUT.PUT_LINE('It is small');
+	END IF;
+
+	END;
+	/
+
+3) IF THEN ELSIF THEN 
+----------------------
+It will evaluate the code based on multiple conditions.
+
+ex:
+	DECLARE 
+	N number;
+	BEGIN
+	N:=&option;
+
+	IF N=100 THEN 
+	DBMS_OUTPUT.PUT_LINE('Police number');
+	ELSIF N=103 THEN 
+	DBMS_OUTPUT.PUT_LINE('Enquiry number');
+	ELSIF N=108 THEN 
+	DBMS_OUTPUT.PUT_LINE('Emergency number');
+	ELSE
+	DBMS_OUTPUT.PUT_LINE('Invalid option');
+	END IF;
+	
+	END;
+	/
+
+LOOPS 
+======
+LOOPS are used to iterate the code for multiple times.
+
+We have three types of LOOPS in PL/SQL.
+
+1) Simple LOOP 
+
+2) While LOOP 
+
+3) For Loop 
+
+1) Simple LOOP 
+----------------
+It will evaluate the code how long our condition is true.
+
+ex:
+	DECLARE 
+	A number:=1;
+	BEGIN
+	
+	DBMS_OUTPUT.PUT_LINE('Welcome');
+
+	LOOP
+	DBMS_OUTPUT.PUT_LINE('Hello');
+	EXIT WHEN A=4;
+	A:=A+1;
+	END LOOP;
+
+	DBMS_OUTPUT.PUT_LINE('Thankyou');
+
+	END;
+	/
+
+2) While LOOP 
+--------------
+It will evalute the code how long our condition is true.
+
+ex:
+
+	DECLARE 
+	A number:=1;
+	BEGIN
+	DBMS_OUTPUT.PUT_LINE('Welcome');
+
+	WHILE A<=4 LOOP 
+	DBMS_OUTPUT.PUT_LINE('Hello');
+	A:=A+1;
+	END LOOP;
+
+	DBMS_OUTPUT.PUT_LINE('Thank You');
+	END;
+	/
+
+
+3) For Loop
+-----------
+It will evaluate the code how long our condition is true.
+
+ex:
+	DECLARE 
+	A number;
+	BEGIN
+	DBMS_OUTPUT.PUT_LINE('Welcome');
+
+	FOR A IN 1 .. 5 LOOP
+	DBMS_OUTPUT.PUT_LINE('Hello');
+	END LOOP;
+
+	DBMS_OUTPUT.PUT_LINE('Thank You');
+	END;
+	/
+
+
+Q) Write a program to display multiplication table of a given number?
+
+	DECLARE 
+	N number;
+	A number;
+	BEGIN
+	N:=&number;
+
+	FOR A IN 1 .. 10 LOOP
+	DBMS_OUTPUT.PUT_LINE(N||' * '||A||' = '||N*A);
+	END LOOP;
+
+	END;
+	/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

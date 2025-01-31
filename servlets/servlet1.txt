@@ -1,0 +1,190 @@
+Web Applications
+=================
+A web application is a collection of web resource programs having the capability to generate web pages.
+
+We have two types of web pages.
+
+1) Static web pages 
+---------------------
+It shows same content for every request.
+ex:
+	Home page 
+	AboutUs page
+	facebook login page 
+	and etc.
+
+2) Dynamic web pages 
+------------------
+It shows dynamic content for every request.
+ex:
+	live cricket score page 
+	stock market share value page
+	news page
+	and etc.
+
+We have two types of web resource programs.
+
+1) Static web resource 
+-----------------------
+A web resource program which is used to develop static web pages is called static web resource program.
+ex:
+	HTML program 
+	CSS program
+	Bootstrap program 
+	and etc.
+
+2) Dynamic web resource 
+------------------------
+A web resource program which is used to develop dynamic web pages is called dynamic web resource program.
+ex:
+	servlet program 
+	JSP program 
+	and etc.
+
+
+Web Application and Web Resource program execution
+==================================================
+Java application will execute manually.
+
+Web application and web resource program execute at the time when they have requested.
+
+Diagram: servlet1.1
+
+With respect to the diagram:
+---------------------------
+1) Enduser gives the request to web resource program.
+
+2) Web server will trap that request and passes that request to appropriate web resource program.
+
+3) Web resource program executes the logic to process the request.
+
+4) Web resource program communicates with database software if neccessary.
+
+5) Web resource program gives result to web server.
+
+6) Web server will send the output to browser window as dynamic response.
+
+
+Web Server 
+===========
+A web server is a piece of software which is used to automate whole process of web application and web resource program execution.
+
+ex:
+	Tomcat, Resin and etc.
+
+The process of keeping the application in the server is called deployment.
+The process of removing the application from the server is called undeployment.
+
+Responsibilies of web server
+------------------------------
+1) It takes continueous request from client.
+
+2) It passes each request to appropriate web resource program.
+
+3) It provides environment to deploy and undeploy the web application.
+
+4) It will add middleware services only to deployed web applications.
+
+5) It allows to execute client side web resource programs to execute in a browser window.
+
+6) It is used to automate whole process of web application and web resource program execution.
+
+
+To execute java program we required JRE/JVM.
+
+To execute servlet program we required servlet container.
+
+To execute JSP program we required jsp container.
+
+
+Web Container
+===============
+A web container is a software application which manage whole life cycle of web resource program i.e from birth to death.
+
+Servlet container manage whole life cycle of servlet program.
+
+JSP container manage whole life cycle of jsp program.
+
+Some part of industry considers servlet container and JSP container are web containers.
+
+Every server is designed to support servlet container and JSP container.
+
+
+Tomcat 
+========
+Version			:	9.x 
+
+Creator			:	James Duncan Davidson
+
+Vendor			: 	Apache Software Foundation 
+
+Website 		:	www.tomcat.apache.org
+
+Port No			:	8080
+
+Servlet container	:	Catalina 
+
+JSP cotainer		:	Jasper 
+
+Download link		:
+
+https://drive.google.com/file/d/1u547booDvVY630rN4drEQ8c8lU0In7T6/view?usp=drive_link
+
+
+Tomcat Installation
+=================
+Double click to Tomcat software --> Yes --> Next --> I Agree --> 
+Select (Full)  --> Next --> 
+
+Connector port : 2525
+
+Adminstrator login 
+	username : admin 
+	password : admin --> Next --> Next ---> Install.
+
+
+Set Tomcat Server To Manual Mode
+=================================
+services --> Apache Tomcat ---> left side (click to stop link) --> double click to Apache Tomcat 
+---> startup type: manual --> apply --> ok.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

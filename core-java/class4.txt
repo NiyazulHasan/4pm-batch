@@ -1,0 +1,343 @@
+Internal Architecture of JVM
+=============================
+Diagram: class4.1
+
+Java program contains java code instructions.Once if we compile our java code instructions convert to byte code instructions in .class file.
+
+JVM will invoke one module called classloader or sub system to load all the byte code instructions from .class file. The work of classloader is to check these byte code instructions are proper or not.
+If they are not proper then it will refuse the execution. If they are proper then it will allocate the memory.
+
+We have five types of memories in java.
+
+1) Method Area 
+---------------
+Method area contains code of a class, code of a variable and code of a method.
+
+2) Heap 
+--------
+Our object creation will store in heap area.
+
+
+3) Java Stack 
+--------------
+Java methods store in method area to execute those methods we required some memory and that memory will be allcocated in java stack.
+
+
+4) PC Register 
+-------------
+It is a program counter register which is used to track the address of an instruction.
+
+
+5) Native Method Stack 
+-----------------------
+Java methods will execute in method area.
+similarly native methods will execute in native method stack.
+But to execute native methods we required a program called native method interface.
+
+
+Execution Engine
+-----------------
+Execution engine contains interpreter and JIT compiler.
+
+Whenever JVM loads byte code instructions from .class file.It uses interpeter and JIT compiler simultenously.
+
+Interpeter is used to execute our program line by line procedure.
+
+JIT compiler is used to increase the execution speed of our program.
+
+Later , byte code instructions convert to machine code .
+
+
+Interview Questions
+==================
+
+Q) What is native method in java?
+
+A method which is developed by using some other language is called native method.
+
+
+
+Q) How many memories are there in java?
+
+We have five memories in java.
+
+1) Method Area
+2) Heap 
+3) Java Stack 
+4) PC Register 
+5) Native Method Stack
+
+
+
+Q) What is JIT compiler?
+
+JIT stands for Just In Time.
+
+It is a part of a JVM which is used to increase the execution speed of our program.
+
+
+
+Q) How many classloaders are there in java?
+
+We have three classloaders in java.
+
+1) Bootstrap classloader 
+
+2) Extension classloader 
+
+3) Application/System classloader
+
+
+Identifiers
+============
+A name in java is called identifier.
+
+It can be variable name, method name, class name or label name.
+
+ex:
+---
+	class Test
+	{
+		public static void main(String[] args)
+		{
+			int x = 10;
+
+			System.out.println(x);	
+		}
+	}
+	Here Test, main, String, args, x, System are identifiers.
+
+Rules to declare an identifiers
+--------------------------------
+Rule1:
+-----
+	Identifier will accept following characters.
+	ex:
+		A-Z
+		a-z
+		0-9
+		_
+		$
+
+Rule2:
+-----
+	If we take other characters then we will get compile time erorr.
+	ex:
+		int   emp#id;  //invalid 
+		
+		class   Test@App //invalid 
+		{
+		}
+
+Rule3:
+-----
+	Identifier must and should starts with alphabet, underscore or dollar symbol but not 
+	with digits.
+	ex:
+		int   a1234;
+		int   _abcd;
+		int   $=20;
+		int   1abcd; //invalid 
+
+
+Rule4:
+------
+	We can't take reserved words as an identifier name.
+	ex:
+		int if; //invalid 
+		int else; //invalid 
+		int  for; //invalid 
+
+
+Rule5:
+------
+	There is no length limit for an identifier but it is not recommanded to take more then 
+	15 characters.
+
+
+Reserved words
+===============
+There are some identifiers which are reserved to associate some functionality or meaning such type of identifiers are called reserved words.
+
+Java support 53 reserved words and it is classified into two types.
+
+Diagram: class4.2
+
+
+Used keywords with respect to class
+------------------------------------
+class
+interface
+package
+import
+enum
+extends
+implements
+
+Used keywords with respect to object
+-----------------------------------
+new 
+instanceof
+this
+super 
+
+Used keywords with respect to datatypes
+-----------------------------
+byte
+short
+int
+long
+float
+double
+boolean
+char 
+
+Used keywords with respect to returntype
+----------------------
+void 
+
+Used keywords with respect to modifiers
+----------------------------
+default
+public
+private
+protected
+final
+abstract
+static
+synchronized
+transient
+volatile 
+native 
+
+Used keywords with respect to flow control
+---------------------------------
+if
+else
+do
+while
+switch
+case
+break
+continue
+for 
+
+Used keywords with respect to exception handling 
+-----------------------------
+try
+catch
+finally
+throw
+throws
+assert 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

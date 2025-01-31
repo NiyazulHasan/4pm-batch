@@ -1,0 +1,358 @@
+Action Tags 
+===========
+Action tags are used to perform perticular operations.
+
+Action tags are used to control the flow of web pages and uses java beans.
+
+Actions tags are executed dynamically at runtime.
+
+Action tags internally uses servlet API functionality.
+
+In JSP, action tags are divided into two types.
+
+1) Standard action tags 
+
+2) Custom action tags 
+
+
+1) Standard action tags
+------------------------
+Built-In tags are called standard action tags.
+
+We have following list of standard action tags.
+
+ex:
+	<jsp:include>
+	<jsp:forward>
+	<jsp:useBean> 
+	<jsp:setProperty>
+	<jsp:getProperty>
+	and etc.
+
+
+Action include 
+==================
+In action include, the output of source JSP program and output of destination jsp program combinely goes to browser window as dynamic response.
+
+It internally uses servlet API functionality called rd.include(req,res).
+
+syntax:
+------
+	<jsp:include page="page_name"/>
+
+
+Deployment Directory Structure 
+-------------------------------
+JspApp7
+|
+|---Java Resources
+|
+|---Webcontent 
+	|
+	|---A.jsp 
+	|---B.jsp 
+	|
+	|---WEB-INF
+		|
+		|---web.xml 
+Note:
+-----
+In above application we need to add "servlet-api.jar" file in project build path.
+
+A.jsp
+------
+<b><i> Begining of A.jsp file </i></b>
+<br>
+<jsp:include page="B.jsp"/>
+<br>
+<b><i> Ending of A.jsp file </i></b>
+
+B.jsp
+------
+<b><i> This is B.jsp </i></b>
+
+web.xml
+----------
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  
+  <welcome-file-list>
+  	<welcome-file>A.jsp</welcome-file>
+  </welcome-file-list>
+  
+</web-app>
+
+Request url
+------------
+	http://localhost:2525/JspApp7/
+
+
+Action forward 
+===============
+In action forward, the output of source JSP program will be discarded and output of destination JSP program goes to browser window as dynamic response.
+
+It internally uses servlet API functionality called rd.forward(req,res).
+
+syntax:
+------
+	<jsp:forward page="page_name"/>
+
+Deployment Directory Structure 
+-------------------------------
+JspApp7
+|
+|---Java Resources
+|
+|---Webcontent 
+	|
+	|---A.jsp 
+	|---B.jsp 
+	|
+	|---WEB-INF
+		|
+		|---web.xml 
+Note:
+-----
+In above application we need to add "servlet-api.jar" file in project build path.
+
+A.jsp
+------
+<b><i> Begining of A.jsp file </i></b>
+<br>
+<jsp:forward page="B.jsp"/>
+<br>
+<b><i> Ending of A.jsp file </i></b>
+
+
+B.jsp
+------
+<b><i> This is B.jsp </i></b>
+
+web.xml
+----------
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  
+  <welcome-file-list>
+  	<welcome-file>A.jsp</welcome-file>
+  </welcome-file-list>
+  
+</web-app>
+
+Request url
+------------
+	http://localhost:2525/JspApp7/
+
+
+
+JSP to java bean communication 
+===============================
+JSP to java communication is possible by using following three tags.
+
+1) <jsp:useBean> tag 
+----------------------
+	It is used to create and locate bean class object.
+
+2) <jsp:setProperty> tag 
+------------------------
+	It is used to call setter methods and set the values to bean object.
+
+3) <jsp:getProperty> tag 
+-----------------------
+	It is used to call getter methods and get the values from bean object.
+
+Note:
+-----
+	All the above tags are independent tags.
+
+
+Example1
+----------
+
+Deployment Directory Structure 
+-------------------------------
+JspApp8
+|
+|---Java Resources
+|	|
+	|------src
+		|
+		|---com.ihub.www
+			|
+			|---CuberNumber.java			
+|---Webcontent 
+	|
+	|---process.jsp
+	|
+	|---WEB-INF
+		|
+		|---web.xml 
+Note:
+-----
+In above application we need to add "servlet-api.jar" file in project build path.
+
+
+
+process.jsp
+------------
+<jsp:useBean id="cn" class="com.ihub.www.CubeNumber" />
+
+<h1>
+<%= "cube of a given number is ="+cn.cube(5) %>
+</h1>
+
+web.xml
+---------
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  
+  <welcome-file-list>
+  	<welcome-file>process.jsp</welcome-file>
+  </welcome-file-list>
+  
+</web-app>
+
+CubeNumber.java
+--------------
+package com.ihub.www;
+
+public class CubeNumber 
+{
+	public int cube(int n)
+	{
+		return n*n*n;
+	}
+}
+
+Request url
+-----------
+	http://localhost:2525/JspApp8/
+
+
+
+Example2
+----------
+
+Deployment Directory Structure 
+-------------------------------
+JspApp9
+|
+|---Java Resources
+|	|
+	|------src
+		|
+		|---com.ihub.www
+			|
+			|---User.java			
+|---Webcontent 
+	|
+	|---form.html 
+	|---process.jsp
+	|
+	|---WEB-INF
+		|
+		|---web.xml 
+Note:
+-----
+In above application we need to add "servlet-api.jar" file in project build path.
+
+form.html
+----------
+
+<form action="process.jsp">
+	
+	UserName: <input type="text" name="username"/> <br>
+	
+	Password: <input type="password" name="password"/> <br>
+	
+	Email: <input type="text" name="email"/> <br>
+	
+	<input type="submit" value="submit"/>
+	
+</form>
+
+web.xml
+---------
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  
+  <welcome-file-list>
+  	<welcome-file>form.html</welcome-file>
+  </welcome-file-list>
+  
+</web-app>
+
+User.java
+----------
+package com.ihub.www;
+
+public class User 
+{
+	private String username;
+	private String password;
+	private String email;
+	
+	public String getUsername() {
+		return username;
+	}
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+}
+
+process.jsp
+----------
+
+<jsp:useBean id="u" class="com.ihub.www.User"></jsp:useBean>
+
+<jsp:setProperty property="*" name="u"/>
+
+Records are : <br>
+
+<jsp:getProperty property="username" name="u"/> <br>
+<jsp:getProperty property="password" name="u"/> <br>
+<jsp:getProperty property="email" name="u"/> <br> 
+
+Request url
+------------
+	http://localhost:2525/JspApp9/
+
+
+Assignment
+============
+Q) Write a java program to display below loop pattern?
+
+6 5 4 3 2 1 
+ 6 5 4 3 2 
+  6 5 4 3 
+   6 5 4
+    6 5   
+     6 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

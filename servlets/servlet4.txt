@@ -1,0 +1,341 @@
+Servlet to Database Communication
+=================================
+Diagram: servlet4.1
+
+Deployment Directory structure
+------------------------------
+DBApp
+|
+|---Java Resources
+|	|
+	|------src
+		|
+		|---com.ihub.www
+			|
+			|---DBSrv.java
+|---WebContent
+	|	
+	|---form.html
+	|
+	|---WEB-INF
+		|
+		|---web.xml 
+		|
+		|-----lib
+			|
+			|---ojdbc14.jar
+Note:
+-----
+In above application we need to add "servlet-api.jar" and "ojdbc14.jar" file in project build path.
+
+form.html
+---------
+
+<form action="test" method="GET">
+
+	No: <input type="text" name="t1"/> <br>
+	
+	Name: <input type="text" name="t2"/> <br>
+	
+	Address: <input type="text" name="t3"/> <br>
+	
+	<input type="submit" value="submit"/>
+
+</form>
+
+web.xml
+-------
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  
+  <servlet>
+  	<servlet-name>DBSrv</servlet-name>
+  	<servlet-class>com.ihub.www.DBSrv</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>DBSrv</servlet-name>
+  	<url-pattern>/test</url-pattern>
+  </servlet-mapping>
+  
+  <welcome-file-list>
+  	<welcome-file>form.html</welcome-file>
+  </welcome-file-list>
+  
+</web-app>
+
+DBSrv.java
+------------
+package com.ihub.www;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class DBSrv extends HttpServlet 
+{
+	protected void doGet(HttpServletRequest req,HttpServletResponse res)throws ServletException,IOException 
+	{
+		PrintWriter pw=res.getWriter();
+		res.setContentType("text/html");
+		
+		//reading form data 
+		String sno=req.getParameter("t1");
+		int no=Integer.parseInt(sno);
+		String name=req.getParameter("t2");
+		String add=req.getParameter("t3");
+		
+		//insert the data into database
+		Connection con=null;
+		PreparedStatement ps=null;
+		String qry=null;
+		int result=0;
+		try
+		{
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:XE","system","admin");
+			qry="insert into student values(?,?,?)";
+			ps=con.prepareStatement(qry);
+			//set the values
+			ps.setInt(1, no);
+			ps.setString(2, name);
+			ps.setString(3, add);
+			
+			//execute 
+			result=ps.executeUpdate();
+			if(result==0)
+				pw.println("<center><h1>No Record Inserted</h1></center>");
+			else
+				pw.println("<center><h1>Record Inserted</h1></center>");
+			
+			ps.close();
+			con.close();
+		}
+		catch(Exception e)
+		{
+			pw.println(e);
+		}
+		pw.close();
+	}
+}
+
+
+Request url
+----------
+	http://localhost:2525/DBApp/
+
+Q) What is the difference between GET and POST methodology?
+
+GET						POST
+------------					------------
+It is a default methodology.			It is not a default methodology.
+
+It carries limited amount of data.		It carried unlimited amount of data.
+
+It sends the request fastly.			It sends the request bit slow.
+
+It is not good for secure data.			It is good for secured data.
+
+File uploading and encyrption is not possible.	File uploading and encryption is possible.
+
+To process GET methodology we will use 		To process POST methodology we will use 
+doGet(-,-) method.				doPost(-,-) method.
+
+
+File uploading 
+===============
+The process of capturing a file from client machine file system and storing in a server machine file system is called file uploading.
+
+There is no specific API in servlet API to perform file uploading.
+
+We need to take the support of third party API called JAVAZOOM API. 
+
+JAVAZOOM API comes in zip file and once if we extracted we will get three jar files.
+
+ex:
+	uploadbean.jar 
+	struts.jar 
+	cos.jar 
+
+We can use file component in a form page as follow.
+ex:
+	<input type="file" name="f1"/>
+
+JAVAZOOM API 
+------------
+https://drive.google.com/file/d/1LB0WSJvSCCVOgz7xNwyuYtmy_0_TfJzq/view?usp=drive_link
+
+
+
+Deployment Directory structure
+------------------------------
+UploadApp
+|
+|---Java Resources
+|	|
+	|------src
+		|
+		|---com.ihub.www
+			|
+			|---FileSrv.java
+|---WebContent
+	|	
+	|---form.html
+	|
+	|---WEB-INF
+		|
+		|---web.xml 
+		|
+		|-----lib
+			|
+			|---uploadbean.jar
+			|---struts.jar
+			|---cos.jar
+Note:
+-----
+In above application we need to add "servlet-api.jar" and "uploadbean.jar" file in project build path.
+
+form.html
+----------
+
+<form action="test" method="POST" enctype="multipart/form-data">
+
+	File1 : <input type="file" name="f1"/> <br>
+	
+	File2 : <input type="file" name="f2"/> <br>
+	
+	<input type="submit" value="upload"/>
+	
+</form>
+
+
+web.xml
+----------
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  
+  <servlet>
+  	<servlet-name>FileSrv</servlet-name>
+  	<servlet-class>com.ihub.www.FileSrv</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>FileSrv</servlet-name>
+  	<url-pattern>/test</url-pattern>
+  </servlet-mapping>
+  
+  <welcome-file-list>
+  	<welcome-file>form.html</welcome-file>
+  </welcome-file-list>
+  
+</web-app>
+
+FileSrv.java
+-------------
+package com.ihub.www;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import javazoom.upload.MultipartFormDataRequest;
+import javazoom.upload.UploadBean;
+
+public class FileSrv extends HttpServlet
+{
+	protected void doPost(HttpServletRequest req,HttpServletResponse res)throws ServletException,IOException
+	{
+		PrintWriter pw=res.getWriter();
+		res.setContentType("text/html");
+		
+		try
+		{
+			UploadBean ub=new UploadBean();
+			ub.setFolderstore("D:\\sai");
+			
+			MultipartFormDataRequest nreq=new MultipartFormDataRequest(req);
+			ub.store(nreq);
+			
+			pw.println("<center><h1>Files are uploaded </h1></center>");
+		}
+		catch(Exception e)
+		{
+			pw.println(e);
+		}
+		
+		pw.close();
+		
+	}
+}
+
+request url
+---------
+	http://localhost:2525/UploadApp/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

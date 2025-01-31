@@ -1,0 +1,274 @@
+OOPS
+=====
+OOPS stands for Object Oriented Programming System/Structure.
+
+OOPS introduced to deal with realworld entities using programming language.
+
+A language is said to be object oriented if it supports following features.
+
+ex:
+	class
+	object
+	Abstraction
+	Encapsulation 
+	Inheritance 
+	Polymorphism 
+
+class
+======
+A class is a blue print object.
+
+A class is a collection of objects.
+
+It is a logical entity.
+
+We can declare a class as follow.
+
+syntax:
+------
+	optional 
+	|
+	Modifier  class  Class_Name  <extends>  Parent_classname
+				     <implements> Interface_name
+	{
+		-
+		- //set of objects
+		-
+	}
+
+A class will accept following modifiers.
+ex:
+	default
+	public
+	final 
+	abstract 
+	
+
+Q) What is the difference between default class and public class?
+
+default class					public class
+------------------				----------------
+To declare default class we will not use 	To declare public class we will use public 	
+any modifier.					modifier.
+
+ex:						ex:
+	class Test					public class Test 
+	{						{
+		
+	}						}
+
+If we declare any class as default then we can 	If we declare any class as public we can access
+access that class within the package.		that class within the package and outside the package.
+
+
+Q) What is the difference between final class and abstract class?
+
+final class					abstract class
+-------------					--------------
+To declare a final class we will use final 	To declare abstract class we will use 
+keyword.					abstract keyword.
+
+ex:						ex:
+	final class Test				abstract class Test 
+	{						{
+
+	}						}
+
+Child creation is not possible.			Child creation is possible.
+
+Object creation is possible.			Object creation is not possible.		
+
+object
+======
+It is a outcome of a blueprint.
+
+It is a instance of a class. Here instance means allocating memory for our data members.
+
+It is a physical entity.
+
+It is a collection of properties and behaviours.
+
+ex:
+			Dog (Object)
+			|
+	---------------------------------
+	|				|
+     properties			  behaviours
+
+	> Name				> barking 
+	> color				> Eating 
+	> Age				> Sleeping
+	> Width 			and etc.
+	> height
+	and etc.
+
+Memory space will be created when we create an object.
+
+It is possible to create more then one object in a single class.
+
+We can declare an object as follow.
+
+ex:
+	reference variable 
+	     |
+	Test t=new Test();
+	|	     |
+classname 	    constructor 
+
+
+ex:
+---
+class Test  
+{
+	public static void main(String[] args) 
+	{
+		Test t1=new Test();
+		Test t2=new Test();
+		Test t3=new Test();
+		
+		System.out.println(t1.hashCode());
+		System.out.println(t2.hashCode());
+		System.out.println(t3.hashCode());
+		
+		System.out.println(t1); // Test@Hexadecimalvalue
+		System.out.println(t2.toString());
+		System.out.println(t3.toString());
+	}
+}
+
+Q) What is hash code in java?
+
+For every object JVM will create a unique identification number i.e hash code.
+
+In order to read hashcode of an object we need to use hashCode() method.
+
+A hashCode() method present in Object class.
+
+Diagram: class20.1
+
+
+
+
+Q) What is toString() method?
+
+It is a method present in Object class.
+
+Whenever we are trying to display any object reference directly or indirectly toString() method will be executed.
+
+Q) What is the difference between class and object?
+
+class						object
+--------------					-------------
+To declare a class we will use class keyword.	To declare an object we will use new keyword.
+
+It is a blue print of an object.		It is a outcome of a blue print.
+
+It is a logical entity.				It is a physical entity.
+
+It is a collection of objects.			It is a collection of properties and behaviours.
+
+It can't be modified.				It can be modified.
+
+It can't declare for multiple times.		It can declare for multiple times.
+
+
+
+
+Data Hiding
+===========
+It is a process of hiding object data within the class.
+
+It prevents direct access for our internal data from outside class.
+
+Using private modifier we can achieve data hiding.
+
+The main objective of data hiding to provide security. 
+
+
+ex
+---
+class Kotak
+{
+	private  double balance=10000d;
+
+}
+class Student
+{
+	public static void main(String[] args)
+	{
+		Kotak k=new Kotak();
+		System.out.println(k.balance);
+	}
+}
+
+o/p:
+	C.T.E : balance has private access in Kotak
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

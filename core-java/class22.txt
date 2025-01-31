@@ -1,0 +1,348 @@
+Inheritance
+============
+Inheritance is a mechanism where one class will inherit the properties of another class.
+
+Inheritance is a mechanism where we will derive a class in the presence of existing class.
+
+Using extends keyword we can implements inheritance.
+
+The main objective of inheritence is to provide reusability.
+
+Diagram: class22.1
+
+We have five types of inheritance.
+
+1) Single Level inheritance
+
+2) Multi level inheritance 
+
+3) Multiple inheritance 
+
+4) Hierarchical inheritance 
+
+5) Hybrid inheritance 
+
+1) Single Level inheritance
+----------------------------
+If we derived a class in the presence of one base class is called single level inheritance.
+
+Diag:
+		A (parent/super/base class)
+		|
+		|
+		B (child/sub/drived class) 
+
+ex:
+---
+class A 
+{
+	int i=10;
+}
+class B extends A 
+{
+	int j=20;
+}
+class Test  
+{
+	public static void main(String[] args) 
+	{
+		A a=new A();
+		System.out.println(a.i); // 10 
+		
+		B b=new B();
+		System.out.println(b.i+" "+b.j);//10  20
+	}
+}
+
+ex:
+---
+class A 
+{
+	public void m1()
+	{
+		System.out.println("M1-Method");
+	}
+	
+}
+class B extends A 
+{
+	public void m2()
+	{
+		System.out.println("M2-Method");
+	}
+}
+class Test  
+{
+	public static void main(String[] args) 
+	{
+		A a=new A();
+		a.m1();
+		
+		B b=new B();
+		b.m1();
+		b.m2();
+	}
+}
+
+
+2) Multilevel inheritance
+---------------------------
+If we derived a class in the presence of one base class and that class is derived from another base class is called multilevel inheritance.
+
+Diag:
+		A 
+		|
+		|
+		B
+		|	
+		|
+		C 
+
+ex:
+---
+class A 
+{
+	public void m1()
+	{
+		System.out.println("M1-Method");
+	}
+}
+class B extends A 
+{
+	public void m2()
+	{
+		System.out.println("M2-Method");
+	}
+}
+class C extends B
+{
+	public void m3()
+	{
+		System.out.println("M3-Method");
+	}
+}
+class Test  
+{
+	public static void main(String[] args) 
+	{
+		A a=new A();
+		a.m1();
+		
+		B b=new B();
+		b.m1();
+		b.m2();
+		
+		C c=new C();
+		c.m1();
+		c.m2();
+		c.m3();
+	}
+}
+
+3) Multiple inheritance
+----------------------
+In java, a class can't extends more then one class simultenously because java does not support multiple inheritance.
+ex:
+	class A 
+	{
+	}
+	class B 
+	{
+	}
+	class C extends A,B --> invalid 
+	{
+	}
+
+But interface can extends more then one interface so we can achieve multiple inheritance concept through interfaces.
+ex:
+	interface A 
+	{
+	}
+	interface B 
+	{	
+	}
+	interface C extends A,B --> valid 
+	{	
+	}
+	
+If our class does not extends any other class then it is a direct child class of Object class.
+
+ex:				Diag:
+	class A 				Object
+	{					|
+	}					|
+						A 
+
+Java does not support cyclic inheritance.
+ex:
+	class A extends B 
+	{
+	}
+	class B extends A 
+	{
+	}
+
+Q) Why java does not support multiple inheritance?
+
+There is a chance of raising ambiguity problem that's why java does not support multiple inheritance.
+
+ex:
+		P1.m1()				P2.m1()
+		|----------------------------------|
+				|
+				c.m1()
+
+4) Hierarchical inheritance
+---------------------------
+If we derived multiple classes by using one base class is called hierarchical inheritance.
+
+Diag:
+				A 
+		|---------------|---------------|
+		B				C
+ex:
+---
+class A 
+{
+	public void m1()
+	{
+		System.out.println("M1-Method");
+	}
+}
+class B extends A 
+{
+	public void m2()
+	{
+		System.out.println("M2-Method");
+	}
+}
+class C extends A
+{
+	public void m3()
+	{
+		System.out.println("M3-Method");
+	}
+}
+class Test  
+{
+	public static void main(String[] args) 
+	{
+		A a=new A();
+		a.m1();
+		
+		B b=new B();
+		b.m1();
+		b.m2();
+		
+		C c=new C();
+		c.m1();
+		c.m3();
+	}
+}
+
+5) Hybrid inheritance
+-----------------------
+Hybrid inheritance is a combination of more then one inheritance.
+
+Java does not support hybrid inheritance.
+
+Diag:
+				A 
+		|---------------|---------------|
+		B				C
+		|-------------------------------|
+				|
+				D 
+
+Method overloading
+====================
+Having same method method name with different parameters or signatures in a single class is called method overloading.
+
+Method overloading will reduce complexity of the programming.
+
+All the methods present in a class are called overloaded methods.
+
+ex:
+---
+class A 
+{
+	//overloaded methods 
+	public void m1()
+	{
+		System.out.println("0-arg method");
+	}
+	public void m1(int i)
+	{
+		System.out.println("int-arg method");
+	}
+	public void m1(double d)
+	{
+		System.out.println("double-arg method");
+	}
+}
+
+class Test  
+{
+	public static void main(String[] args) 
+	{
+		A a =new A();
+		a.m1();
+		a.m1(10);
+		a.m1(10.5d);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

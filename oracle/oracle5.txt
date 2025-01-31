@@ -1,0 +1,305 @@
+2) Scalar functions
+======================
+Scalar functions are applicable for single row.
+
+It is divided into four types.
+
+i) Character functions 
+
+ii) Number functions 
+
+iii) Date functions 
+
+iv) Conversion functions 
+
+
+i) Character functions 
+-----------------------
+We have following list of character functions.
+
+1) upper()
+---------
+	It is used to convert the string in uppercase.
+	ex:
+		select upper('oracle training') from dual;
+
+2) lower()
+---------
+	It is used to convert the string in lowercase.
+	ex:
+		select lower('ORACLE TRAINING') from dual;
+
+3) initcap() 
+------------
+	It is used to convert the string in initcap.
+	ex:
+		select initcap('oracle training') from dual;
+
+4) lpad()
+--------
+	It is used to pad to characters to left side.
+	ex:
+		select lpad('oracle',10,'z') from dual; --zzzzoracle
+
+5) rpad()
+----------
+	It is used to pad to characters to right side.
+	ex:
+		select rpad('oracle',10,'z') from dual; -- oraclezzzz
+
+6) ltrim()
+-----------
+	It is used to trim the characters from left side.
+	ex:
+		select ltrim('zzoraclezz','z') from dual; -- oraclezz
+
+7) rtrim()
+---------
+	It is used to trim the characters from left side.
+	ex:
+		select rtrim('zzoraclezz','z') from dual; -- zzoracle
+
+8) trim()
+----------
+	It is used to trim the characters from both the sides.
+	ex:
+		select trim('z' from 'zzoraclezz') from dual; -- oracle
+
+9) concat()
+----------
+	It is used to concatinate two strings.
+	ex:
+		select concat('java','developer') from dual; -- javadeveloper
+
+10) replace() 
+-----------
+	It is used to replace the characters.
+	ex:
+		select replace('google','o','O') from dual;
+
+
+
+ii) Number functions 
+-----------------------
+We have following list of number functions.
+
+1) abs()
+-------
+	It returns absolute value.
+	ex:
+		select abs(-30) from dual;  -- 30
+
+2) sqrt()
+--------
+	It returns square root value.
+	ex:
+		select sqrt(25) from dual;  -- 5
+
+3) power(A,B)
+-----------
+	It returns power value.
+	ex:
+		select power(5,3) from dual; -- 125
+		
+4) ceil()
+----------
+	It returns ceil value.
+	ex:
+		select ceil(10.3) from dual; -- 11
+		select ceil(9.9) from dual; -- 10
+ 
+
+5) floor()
+----------
+	It returns floor value.
+	ex:
+		select floor(10.9) from dual; -- 10
+		select floor(10.2) from dual; -- 10
+
+6) round()
+----------
+	It returns nearest value.
+	ex:
+		select round(10.5) from dual;  -- 11
+		select round(10.4) from dual;  -- 10
+
+7) trunc() 
+----------
+	It is used to remove decimals.
+	ex:
+		select trunc(10.56) from dual; -- 10
+
+8) greatest()
+---------------
+	It is used to return greatest value.
+	ex:
+		select greatest(10,20,30) from dual; -- 30
+
+9) least() 
+------------
+	It is used to return least vaue.
+	ex:
+		select least(10,20,30) from dual; -- 10
+
+
+Working with Date 
+=================
+Every database software supports date value.
+
+Every database software contains different date patterns.
+ex:
+	oracle --> dd-MMM-yy
+	mysql  --> yyyy-MM-dd 
+
+ex:
+--
+drop table emp1;
+
+create table emp1(eid number(3),ename varchar2(10),edoj date);
+
+insert into emp1 values(201,'Alan','01-JAN-24');
+
+insert into emp1 values(202,'Jose',sysdate);
+
+insert into emp1 values(203,'Nelson',current_date);
+
+commit;
+
+
+iii) Date functions
+------------------
+We have following list of date functions.
+
+1) ADD_MONTHS() 
+-------------
+	It is used to add the months in a given date.
+	ex:
+		select ADD_MONTHS('01-JAN-24',5) from dual;
+
+2) MONTHS_BETWEEN()
+------------------
+	It is used to return number of months between two dates.
+	ex:
+		select MONTHS_BETWEEN('01-JAN-24','01-NOV-24') from dual;
+		select ABS(MONTHS_BETWEEN('01-JAN-24','01-NOV-24')) from dual;
+
+3) NEXT_DAY()
+-----------
+	It returns date of a given day in a week.
+	ex:
+		select NEXT_DAY(sysdate,'MONDAY') from dual;
+		select NEXT_DAY(sysdate,'SATURDAY') from dual;
+
+
+4) LAST_DAY()
+------------
+	It returns last date of a month.
+	ex:
+		select LAST_DAY(sysdate) from dual;
+
+
+iv) Conversion functions
+-----------------------
+We have following list of conversion function.
+ex:
+	TO_CHAR() 
+
+We have two pseudo's for TO_CHAR().
+
+1) number TO_CHAR() 
+--------------------
+It takes '9' in digits , dollar and euro symbols.
+ex:
+	select eid,ename,esal from emp;
+	select eid,ename,TO_CHAR(esal,'9,999') from emp;
+	select eid,ename,TO_CHAR(esal,'99,999') from emp;
+	select eid,ename,TO_CHAR(esal,'$99,999') from emp;
+	select eid,ename,TO_CHAR(esal,'$99,999') as ESAL from emp;
+	
+2) Date  TO_CHAR() 
+------------------
+ex:
+	select TO_CHAR(sysdate,'dd-MM-yyyy') from dual;
+	select TO_CHAR(sysdate,'yyyy-MM-dd') from dual;
+	select TO_CHAR(sysdate,'HH:MI:SS') from dual;
+	select TO_CHAR(sysdate,'dd-MM-yyyy HH:MI:SS') from dual;
+
+
+Interview Query
+================
+Q) Write a query to display employee id, employee name, employee salary and employee job from emp table?
+
+	select eid,ename,esal,job from emp;
+
+	select eid, 
+		upper(ename) as ename,
+		   TO_CHAR(esal,'$99,999') as esal,
+		      lower(job) as job  from emp;
+
+
+Group by clause
+===============
+Group by clause is used to divide the rows in to groups so that we can apply group functions.
+
+A column which we used in select command then same colum name we need to use in group by clause.
+
+ex:
+
+Q) Write a query to display sum of salary of each department?
+
+	select sum(esal),deptno from emp group by deptno;
+
+
+Q) Write a query to display maximum salary of each job?
+
+	select max(esal),job from emp group by job;
+
+
+Having clause
+===============
+Having clause is used to filter the rows from group by clause.
+
+Having clause must place after group by clause.
+
+ex:
+	
+Q) Write a query to display sum of salary of each department where sum salary is greater then 30000?
+
+	select sum(esal),deptno from emp group by deptno having sum(esal)>30000;
+
+
+Q) Write a query to display minimum salary of each department where minimum salary must be less then 12000?
+
+	select min(esal),deptno from emp group by deptno having min(esal)<12000;
+
+
+Order by clause
+=================
+Order by clause is used to filter the rows in a table.
+
+By default it will arrange the records in ascending order.
+
+ex:
+	select * from emp order by esal;
+
+	select * from emp order by esal desc;
+
+	select * from emp order by ename;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

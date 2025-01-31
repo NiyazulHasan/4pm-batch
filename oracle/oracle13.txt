@@ -1,0 +1,351 @@
+Procedure 
+==========
+It is a named PL/SQL block which compiled and stored in a database for repeated execution.
+
+syntax:
+------
+	create or replace procedure <procedure_name>
+	is
+	begin
+	-
+	-
+	-
+	end;
+	/
+
+ex:
+	create or replace procedure p1 
+	is
+	begin
+	DBMS_OUTPUT.PUT_LINE('Hello world');
+	END;
+	/
+	
+	To call this procedure we need to use below command.
+	ex:
+		exec  p1;
+
+A procedure contains three parameters.
+
+1) IN parameter
+
+2) OUT parameter
+
+3) IN OUT parameter 
+
+1) IN parameter
+---------------
+It is used to accept the inputs from the user.
+
+ex:
+	create or replace procedure sum(A IN number, B IN number)
+	is
+	C number;
+	begin
+	C:=A+B;
+	DBMS_OUTPUT.PUT_LINE(C);
+	END;
+	/
+
+	To invoke this procedure we need to use below command.
+	ex:
+		exec  sum(10,20);
+
+
+2) OUT parameter
+----------------
+It is used to return the value to the user.
+
+ex:
+
+	create or replace procedure ret_sum(A IN number,B IN number, C OUT number)
+	is
+	begin
+	C:=A+B;
+	END;
+	/
+
+	To invoke above procedure we need to use below commands.
+	ex:
+		variable N number;
+		exec ret_sum(10,20,:N);
+		print N;
+
+
+3) IN OUT parameter 
+------------------
+It is used to accep the vaule from the user and return the value to the user.
+	
+ex:
+	create or replace procedure ret_cube(A IN OUT number)
+	is
+	begin
+	A:=A*A*A;
+	END;
+	/
+
+	We can invoke above procedure by using below commands.
+	ex:
+		variable N number;
+		
+		BEGIN
+		:N:=5;
+		END;
+		/
+
+		exec  ret_cube(:N);
+
+		print N;
+
+
+Functions
+==========
+A function is a named PL/SQL which much and should returns a value.
+
+syntax:
+	create or replace function <function_name> 
+	return datatype
+	is
+	begin
+	-
+	-
+	-
+	end;
+	/
+
+ex:
+---
+	create or replace function f1(A number,B number)
+	return number
+	is
+	C number;
+	begin
+	C:=A+B;
+	return C;
+	END;
+	/	
+
+	We can invoke above function as follow.
+	ex:
+		select  f1(10,20) from dual;
+
+
+
+Q) What is the difference between procedures and functions?
+
+Procedures 					functions
+--------------					-----------
+Procedure may or may not returns a value.	Function always returns a value.
+
+DML operations are allowed.			DML operations are not allowed.
+
+Can't be invoked by using select command.	Can be invoked by using select command.
+
+
+
+Packages
+=========
+A package is a collection of logical related sub programs.
+
+PL/SQL stored procedures and functions are called logical related sub programs.
+
+In general, a package is a collection of procedures and functions.
+
+A package creation involved in two steps.
+
+1) Package specification 
+-------------------------
+	It contains declaration of logical related sub programs.
+
+2) Package body 
+--------------
+	It contains definition of logical related sub programs.
+
+
+ex:1
+----
+
+package specification 
+------------------
+	create or replace package pkg1 
+	is
+	procedure sum(A IN number,B IN number);
+	end pkg1;
+	/	
+
+package body
+----------
+	create or replace package body pkg1 
+	is
+
+	procedure sum(A IN number,B IN number)
+	is
+	C number;
+	begin
+	C:=A+B;
+	DBMS_OUTPUT.PUT_LINE(C);
+	end;
+
+	end pkg1;
+	/
+
+
+	We can call above procedure as follow.
+	ex:
+		exec pkg1.sum(10,20);
+
+ex:2
+---
+
+package specification 
+---------------------
+	create or replace package pkg2 
+	is
+	function ret_sum(A number,B number)
+	return number;
+	end pkg2;
+	/
+
+package body
+-----------
+	create or replace package body pkg2 
+	is
+	function ret_sum(A number,B number)
+	return number
+	is
+	C number;
+	begin
+	C:=A+B;
+	return C;
+	END;
+
+	end pkg2;
+	/
+
+	Execute above function by using below command.
+	ex:
+		select pkg2.ret_sum(40,60) from dual;
+
+To drop the package we need to use below command.
+ex:
+	drop package body pkg1;
+	drop package pkg1;
+		
+
+Triggers
+==========
+Trigger is a PL/SQL block which execute based on the events.
+
+Trigger events are insert, update and delete.
+
+Trigger timings are before, after and insteadof.
+
+syntax:
+------
+	create or replace trigger <trigger_name> <timing> <event> on <object_name>
+	begin
+	-
+	-
+	end;
+	/
+
+
+ex:
+	create or replace trigger trg1 before insert  on student
+	BEGIN
+	DBMS_OUTPUT.PUT_LINE('Thanks for Inserting');
+	END;
+	/
+
+	insert into student values(103,'Kelvin','Chicago');
+
+Triggers can be created on multiple events.
+
+ex
+	create or replace trigger trg2 after insert or update or delete on student
+	begin
+	if inserting then
+	DBMS_OUTPUT.PUT_LINE('Yahoo! Inserted');
+	ELSIF updating then 
+	DBMS_OUTPUT.PUT_LINE('Yahoo! Updated');
+	ELSE 
+	DBMS_OUTPUT.PUT_LINE('Yahoo! Deleted');
+	END IF;
+	END;
+	/
+
+	insert into student values(104,'Jessica','Vegas');
+	update student set sname='rani' where sno=101;
+	delete from student where sno=104;
+
+
+
+Q) Write a query to drop the trigger?
+
+	drop trigger trg1;
+	drop trigger trg2;
+
+
+Triggers are divided into two types.
+
+1) Statement level trigger
+-------------------------
+By default every trigger is a statement level trigger.
+
+Statement level trigger will execute only for one time.
+
+ex:
+	create or replace trigger trg1 before delete  on student
+	BEGIN
+	DBMS_OUTPUT.PUT_LINE('Thanks for deleting ');
+	END;
+	/
+
+	delete from student;
+
+
+2) Row level trigger 
+--------------------
+Row level trigger will execute irrespective of number of records effected in a database table.
+
+To create a row level trigger we need to use "for each row" clause.
+
+ex:
+	create or replace trigger trg1 before delete  on student for each row
+	BEGIN
+	DBMS_OUTPUT.PUT_LINE('Thanks for deleting ');
+	END;
+	/
+
+	delete from student;
+
+
+Interview Questions
+====================
+Q) Write a query to display list of procedures present in database?
+
+	select object_name from user_objects where object_type='PROCEDURE';
+	
+Q) Write a query to display list of functions present in database?
+
+	select object_name from user_objects where object_type='FUNCTION';
+
+Q) Write a query to display list of packages present in database?
+
+	select object_name from user_objects where object_type='PACKAGE';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,501 @@
+Has-A relationship
+===================
+Has-A relationship is also known as composition and aggregation.
+
+There is no specific keyword to implements Has-A relationship but mostly we will use 
+new operator.
+
+The main objective of Has-A relationship is to provide reusability.
+
+Has-A relationship will increase dependency between two components.
+
+ex:
+	class Faculty
+	{
+		-
+		- // faculty specific functionality 
+		-
+	}
+	class Course
+	{
+		Faculty f=new Faculty();
+		-
+		-
+	}
+
+ex:
+----
+class Ihub 
+{
+	public String courseName()
+	{
+		return "FSD-JAVA";
+	}
+	public String trainerName()
+	{
+		return "Niyaz Sir";
+	}
+	public double courseFee()
+	{
+		return 30000d;
+	}
+}
+class Usha
+{
+	public void getCourseDetails()
+	{
+		Ihub i=new Ihub();
+		System.out.println("Course Name : "+i.courseName());
+		System.out.println("Trainer Name : "+i.trainerName());
+		System.out.println("Course Fee : "+i.courseFee());
+	}
+}
+class Student
+{
+	public static void main(String[] args)
+	{
+		Usha u=new Usha();
+		u.getCourseDetails();
+	}
+}
+
+composition
+-----------
+Without existing container object there is no chance of having contained object then the 
+relationship between container and contained object is called composition which is 
+strongly association.
+
+Diagram: class23.1
+
+aggregation
+-------------
+Without existing container object there is a chance of having contained object then the 
+relationship between container and contained object is called aggregation which is 
+loosely association.
+
+Diagram: class23.2
+
+
+
+Method overloading
+==================
+Having same method name with different parameters/signatures in a single class is called 
+method overloading.
+
+Method overloading will reduce complexity of the programming.
+
+All the methods present in a class are called overloaded methods.
+
+ex:
+---
+class A 
+{
+	//overloaded methods 
+	public void m1()
+	{
+		System.out.println("0-arg method");
+	}
+	public void m1(int i)
+	{
+		System.out.println("int-arg method");
+	}
+	public void m1(double d)
+	{
+		System.out.println("double-arg method");
+	}
+}
+class Test 
+{
+	public static void main(String[] args)
+	{
+		A a=new A();
+		a.m1();
+		a.m1(10);
+		a.m1(10.5d);
+	}
+}
+
+Method overriding 
+=================
+Having same method name with same parameters/signatures in two different classes is 
+called method overriding.
+
+Methods which are present in parent class are overridden methods.
+
+Methods which are present in child class are called overriding methods.
+
+ex:
+--
+class Parent 
+{
+	public void property()
+	{
+		System.out.println("Cash+Gold+Land");
+	}
+	//overridden method
+	public void marry()
+	{
+		System.out.println("Trisha");
+	}
+}
+class Child extends Parent 
+{
+	//overriding methods
+	public void marry()
+	{
+		System.out.println("Rashmika");
+	}
+}
+class Test 
+{
+	public static void main(String[] args)
+	{
+		Parent p=new Parent();
+		p.property(); // cash+gold+land
+		p.marry(); // Trisha 
+
+		Child c=new Child();
+		c.property(); // cash+gold+land
+		c.marry(); // Rashmika
+
+		Parent p1=new Child();
+		p1.property(); // cash+gold+land
+		p1.marry();// Rashmika
+	}
+}
+
+If we declare any method as final then overriding of that method is not possible.
+
+ex:
+---
+class Parent 
+{
+	public void property()
+	{
+		System.out.println("Cash+Gold+Land");
+	}
+	//overridden method
+	public final void marry()
+	{
+		System.out.println("Trisha");
+	}
+}
+class Child extends Parent 
+{
+	//overriding methods
+	public void marry()
+	{
+		System.out.println("Rashmika");
+	}
+}
+class Test 
+{
+	public static void main(String[] args)
+	{
+		Parent p=new Parent();
+		p.property(); // cash+gold+land
+		p.marry(); // Trisha 
+
+		Child c=new Child();
+		c.property(); // cash+gold+land
+		c.marry(); // Rashmika
+
+		Parent p1=new Child();
+		p1.property(); // cash+gold+land
+		p1.marry();// Rashmika
+	}
+}
+
+
+Method hiding
+==============
+Method hiding is exactly same as method overriding with following differences.
+
+Method overriding				Method hiding 
+--------------------				-----------------
+All methods must be non-static.			All methods must be static.
+
+Method resolution will taken care by JVM	Method resolution will taken care by
+based on runtime object.			compiler based on reference type.
+
+It is also known as runtime polymorphism,	It is also known as compile time 
+dynamic polymorphism or late binding.		polymorphism, static polymorphism or 
+						early binding.
+
+ex:
+---
+class Parent 
+{
+	public static void property()
+	{
+		System.out.println("Cash+Gold+Land");
+	}
+	//overridden method
+	public static void marry()
+	{
+		System.out.println("Trisha");
+	}
+}
+class Child extends Parent 
+{
+	//overriding methods
+	public static void marry()
+	{
+		System.out.println("Rashmika");
+	}
+}
+class Test 
+{
+	public static void main(String[] args)
+	{
+		Parent p=new Parent();
+		p.property(); // cash+gold+land
+		p.marry(); // Trisha 
+
+		Child c=new Child();
+		c.property(); // cash+gold+land
+		c.marry(); // Rashmika
+
+		Parent p1=new Child();
+		p1.property(); // cash+gold+land
+		p1.marry();// Trisha
+	}
+}
+
+
+
+Polymorphism
+==============
+Polymorphism has taken from Greek word.
+
+Here poly means many and morphism means forms.
+
+The ability to represent in different forms is called polymorphism.
+
+The main objective of polymorphism is to provide flexibility.
+
+Diagram: class23.3
+
+In java, polymorphism is divided into two types.
+
+1) Compile time polymorphism  / Static polymorphism / Early Binding
+
+2) Runtime polymorphism / Dynamic polymorphism / Late Binding
+
+
+1) Compile time polymorphism
+---------------------------
+A polymorphism which exhibits at compile time is called compile time polymorphism.
+ex:
+	Method overloading 
+	Method hiding 
+
+2) Runtime polymorphism
+-------------------
+A polymorphism which exhibits at runtime is called runtime polymorphism.
+ex:
+	Method overriding
+
+
+Constructor
+===========
+A constructor is a special method which is used to initialized an object.
+
+Having same name as class name is called constructor.
+
+It will execute when we create an object.
+
+It does not allow any returntype.
+
+It will acccept following modifiers.
+ex:
+	default 
+	public
+	private 
+	protected 
+
+In java , a constructor is divided into two types.
+
+1) Userdefined constructor 
+
+2) Default constructor 
+
+1) Userdefined constructor 
+--------------------------
+If a constructor is created by the user based on the application requirement is called 
+userdefined constructor.
+
+It is classified into two types.
+
+i) Zero-argument constructor 
+
+ii) Parameterized constructor 
+
+
+i) Zero-argument constructor 
+-------------------------
+Suppose if we are not passing atleast one argument to userdefined constructor then that 
+constructor is called zero argument constructor.
+
+ex:
+---
+
+class Test 
+{
+	Test()
+	{
+		System.out.println("constructor");
+	}
+	public static void main(String[] args)
+	{
+		System.out.println("Main-Method");
+	}
+}
+o/p:
+	Main-Method
+
+ex:
+---
+
+class Test 
+{
+	protected Test()
+	{
+		System.out.println("constructor");
+	}
+	public static void main(String[] args)
+	{
+		System.out.println("Main-Method");
+		Test t=new Test();
+	}
+}
+o/p:
+	Main-Method
+	constructor
+
+ex:
+---
+
+class Test 
+{
+	private Test()
+	{
+		System.out.println("constructor");
+	}
+	public static void main(String[] args)
+	{
+		Test t1=new Test();
+		System.out.println("Main-Method");
+		Test t2=new Test();
+	}
+}
+o/p:
+	main-method
+	constructor
+	main-method
+
+i) parameterized constructor 
+-------------------------
+Suppose if we are passing atleast one argument to userdefined constructor then that 
+constructor is called parameterized argument constructor.
+
+ex:
+--
+class Employee
+{
+	private int empId;
+	private String empName;
+	private double empSal;
+
+	public Employee(int empId,String empName,double empSal)
+	{
+		this.empId=empId;
+		this.empName=empName;
+		this.empSal=empSal;
+	}
+	public void getEmployeeDetails()
+	{
+		System.out.println("Employee Id : "+empId);
+		System.out.println("Employee Name : "+empName);
+		System.out.println("Employee Salary : "+empSal);
+	}
+}
+class Test 
+{
+	public static void main(String[] args)
+	{
+		Employee e=new Employee(101,"Alan Morries",1000d);
+		e.getEmployeeDetails();
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,498 @@
+StringBuilder
+=============
+StringBuilder is exactly same as StringBuffer with following differences.
+
+StringBuffer					StringBuilder
+------------					--------------
+All the methods present in StringBuffer		No method present in StringBuilder is 
+are synchronized.				synchronized.
+
+At time only one thread is allowed to 		Multiple threads are allowed to operate
+operate on StringBuffer object.Hence we 	on StringBuilder object.Hence we can't 
+can achieve thread safety.			achieve thread safety.
+
+Waiting time of a thread will increase		There is no waiting threads relatively performance 
+relatively performance is low.			is high.
+
+It is introduced in 1.0v.			It is introduced in 1.5v.
+
+Note:
+----
+If our content not change frequently then we need to use String.
+
+If our content change frequently where thread safety is required then we need to use StringBuffer.
+
+If our content change frequently where thread safety is not required then we need to use 
+StringBuilder.
+
+
+
+
+Exception Handling
+==================
+Q) What is the difference between Exception and Error?
+
+Exception
+----------
+	Exception is a problem for which we can provide solution programmatically.
+
+	Exception will raise due to syntax errors.
+
+	ex:
+		ArithmeticException 
+		FileNotFoundException 
+		IllegalArgumentException 
+
+Error
+------
+	Error is a problem for which we can't provide solution programmatically.
+
+	Error will raise due to lack of system resources.
+
+	ex:
+		OutOfMemoryError 
+		StackOverFlowError
+		LinkageError 
+
+
+As a part of java application development it is a responsibility of a programmer to provide 
+smooth termination for every java program.
+
+We have two type of terminations.
+
+1) Smooth termination / Graceful termination 
+
+2) Abnormal termination 
+
+1) Smooth termination
+----------------------
+During the program execution suppose if we are not getting some interruption in the middle of the 
+program such type of termination is called smooth termination.
+
+ex:
+---
+class Test 
+{
+	public static void main(String[] args) 
+	{
+		System.out.println("Hello World!");
+	}
+}
+
+2) Abnormal termination 
+-----------------------
+During the program execution suppose if we are getting some interruption in the middle of the 
+program such type of termination is called abnormal termination.
+
+ex:
+---
+class Test 
+{
+	public static void main(String[] args) 
+	{
+		System.out.println(10/0);
+	}
+}
+
+If any exception raised in our program then we must and should handle that exception otherwise
+our program will terminates abnormally.
+
+Here exception will display name of the exception, description of the exception and line number
+of the exception.
+
+Exception
+==========
+It is unwanted, unexpected event which disturbs normal flow a program.
+
+Exception always raised at runtime so they are also known as runtime events.
+
+The main objective of exception handling is to provide graceful termination.
+
+In java, exceptions are divided into two types.
+
+1) Predefined exceptions
+
+2) Userdefined exceptions 
+	
+1) Predefined exceptions
+------------------------
+Built-In exceptions are called predefined exceptions.
+
+They are classified into two types.
+
+i) Checked exceptions 
+------------------
+Exceptions which are checked by the compiler at the time of compilation are called checked exceptions.
+ex:
+		InterruptedException 
+		EOFException
+		FileNotFoundException 
+
+ii) Unchecked exceptions 
+-------------------------
+Exceptions which are checked by the JVM at the time of runtime are called unchecked exceptions.
+ex:
+		ArithmeticException
+		IllegalArgumentException
+		ClassCastException 
+		
+Diagram: class30.1
+
+If any checked exception raised in our program we must and should handle that exception by using
+try and catch block.
+
+try block
+========
+It is a block which contains risky code.
+
+If exception raise in try block then try block won't be executed.
+
+A try block associate with catch block.
+
+A try block is used to throw the exception to catch block.
+
+catch block
+==========
+It is a block which contains error handling code.
+
+A catch block is used to catch the exception which is thrown by try block.
+
+If there is no exception in try block then catch block won't be executed.
+
+A catch block will take exception class name as parameter and that name must match with exception
+class name.
+
+syntax:
+------
+try
+{
+	-
+	- //Risky Code
+	-
+}
+catch(ArithmeticException ae)
+{
+	-
+	- //Error handling code
+	-
+}
+
+
+ex:
+--
+class Test 
+{
+	public static void main(String[] args) 
+	{
+		try
+		{
+			System.out.println("try-block");
+		}
+		catch (Exception e)
+		{
+			System.out.println("catch-block");
+		}
+
+	}
+}
+o/p:	
+	try-block 
+
+ex:
+---
+class Test 
+{
+	public static void main(String[] args) 
+	{
+		try
+		{
+			System.out.println(10/0);
+		}
+		catch (ArithmeticException ae)
+		{
+			System.out.println("catch-block");
+		}
+
+	}
+}
+o/p:
+	catch-block
+
+ex:
+---
+class Test 
+{
+	public static void main(String[] args) 
+	{
+		try
+		{
+			System.out.println("stmt1");
+			System.out.println(10/0);
+			System.out.println("stmt2");
+		}
+		catch (ArithmeticException ae)
+		{
+			System.out.println("catch-block");
+		}
+
+	}
+}
+o/p:
+	stmt1
+	catch-block
+
+
+Various ways to display exception details
+=========================================
+Throwable class defines following three methods to display exception details.
+
+1) printStackTrace()
+----------------
+It will display name of the exception,description of the exception and line number of the exception.
+
+2) toString()
+-----------
+It will display name of the exception and description of the exception.
+
+3) getMessage() 
+--------------
+It will display description of the exception.
+
+ex:
+---
+class Test 
+{
+	public static void main(String[] args) 
+	{
+		try
+		{
+			System.out.println(10/0);
+		}
+		catch (ArithmeticException ae)
+		{
+			ae.printStackTrace();
+
+			System.out.println("==============");
+
+			System.out.println(ae.toString());
+
+			System.out.println("===============");
+
+			System.out.println(ae.getMessage());
+		}
+
+	}
+}
+
+
+Q) How to handle multiple exceptions using single catch block?
+
+ex:
+--
+class Test 
+{
+	public static void main(String[] args) 
+	{
+		try
+		{
+			//System.out.println(10/0);
+
+			Thread.currentThread().setPriority(12);
+		}
+		catch (ArithmeticException | IllegalArgumentException | NullPointerException e)
+		{
+			e.printStackTrace();
+		}
+
+	}
+}
+
+finally block
+==============
+It is never recommanded to maintain cleanup code in try block because if any exception raise in try 
+block then try block won't be executed.
+
+It is never recommanded to maintain cleanup in in catch block because if there is no exception 
+in try block then catch block won't be executed.
+
+But we need to place where we can maintain cleanup code and it should execute irrespective 
+of exception raised or not. Such block is called finally block.
+
+finally block always associate with try and catch.
+
+syntax:
+-------
+try
+{
+	-
+	- //Risky code
+	-
+}
+catch(Exception e)
+{
+	-
+	- //Error handling code
+	-	
+}
+finally
+{
+	-
+	- // cleanup code 
+	-
+}
+
+ex:
+---
+class Test 
+{
+	public static void main(String[] args) 
+	{
+		try
+		{
+			System.out.println("try-block");
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			System.out.println("finally-block");
+		}
+	}
+}
+o/p:
+	try-block
+	finally-block
+
+ex:
+---
+class Test 
+{
+	public static void main(String[] args) 
+	{
+		try
+		{
+			System.out.println(10/0);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		finally
+		{
+			System.out.println("finally-block");
+		}
+	}
+}
+o/p:
+	java.lang.ArithmeticException: / by zero
+        at Test.main(Test.java:7)
+	finally-block
+
+A try with finally combination is valid in java.
+
+ex:
+--
+class Test 
+{
+	public static void main(String[] args) 
+	{
+		try
+		{
+			System.out.println("try-block");
+		}
+		finally
+		{
+			System.out.println("finally-block");
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

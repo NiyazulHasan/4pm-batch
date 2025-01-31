@@ -1,0 +1,281 @@
+Indexes
+========
+Index is used to improve the performance of select statement.
+
+Index in a table is similar to index in a book. 
+
+We can create index only to those columns which are widely used in where clause.
+
+Whenever we create index, two indexes will be generated. One is ROWID and another is indexed column and all records will store in ascending order inside indexed column.
+
+ex:
+			INDEX TABLE 
+	-----------------------------------------------
+		ROWID		|	indexed column
+	-----------------------------------------------	
+				|	201
+				|	202	
+				|	203	
+				|	204
+				|	205
+				|	206
+	------------------------------------------------
+
+We have two types of indexes.
+
+1) Simple index 
+---------------
+If index is created only for one column is called simple index.
+
+syntax:
+--------
+	create index <index_name> ON <table_name>(col_name);
+
+ex:
+	create index idx1 ON emp(eid);
+
+
+	select * from emp where eid=206;
+
+	Here index is used when we use eid in where clause.
+
+
+2) Complex index 
+--------------
+If index is created for multiple columns is called complex index.
+
+syntax:
+--------
+	create index <index_name> ON <table_name>(col1_name,col2_name,....,colN_name);
+
+ex:
+	create index idx2 ON emp(esal,deptno);
+
+	select * from emp where esal=9000 and deptno=10;
+
+	Here index is used when we use esal and deptno in where clause.
+
+
+Q) Write a query to see the list indexes present in database?
+	
+	select index_name from user_indexes;
+
+
+q) Write a query to drop the index?
+
+	drop index idx1;
+	drop index idx2;
+
+
+Synonym
+========
+Alternate name given to an object is called synonym.
+
+Using synonym length of the query will reduce.
+
+We can use synonym name instead of table name for all commands.
+
+syntax:
+------
+	create synonym <synonym_name> for <object_name>;
+
+ex:
+	create synonym sy1 for student;
+
+	select * from sy1; // 1 record 
+
+	insert into sy1 values(102,'Jack','Texas');
+	commit;
+
+
+Q) Write a query to see the list of synonyms present in database?
+
+	select synonym_name from user_synonyms;
+
+
+
+Q) Write a query to drop the synonym?
+
+	drop synonym sy1;
+
+
+
+Joins
+========
+select * from emp,dept; // 6 * 4 = 24 records 
+
+select eid,ename,esal,deptno,dname,dloc from emp,dept;  //column ambiguously defined
+
+To overcome above limitation we can use table_name.col_name.
+
+select emp.eid,emp.ename,emp.deptno,dept.dname,dept.dloc from emp,dept; // 6 * 4 = 24 records 
+
+
+table alias
+-----------
+A userdefined heading given to a table is called table alias.
+
+Using table alias length of the query will reduce and mean while performance is maintained.
+
+Table alias is temperory. Once the query is executed we will loss the table alias.
+
+ex:
+	select e.eid,e.ename,e.esal,d.dname,d.dloc from emp e,dept d; // 6 * 4 = 24 records
+
+
+Definition :
+------------
+Joins is used to retrieve the data from one or more then one table.
+
+We have following list of joins.
+
+1) Equi join 
+
+2) Non-Equi join 
+
+3) Self join 
+
+4) Cartisian product 
+
+5) Inner join 
+
+6) Outer join 
+
+
+1) Equi join 
+-------------
+If two tables are joined based on column column is called equi join.
+
+ex:
+	select e.eid,e.ename,e.esal,d.dname,d.dloc from emp e,dept d
+	where(e.deptno=d.deptno); // 6 records 
+
+
+2) Non-Equi join 
+-----------------
+If two tables are not joined using equi join operator then it is called non-equi join.
+ex:
+	select e.eid,e.ename,e.esal,d.dname,d.dloc from emp e,dept d
+	where esal between 30000 AND 50000; // 2 * 4 = 8 records 
+
+3) Self join 
+-----------
+If a table joined to itself is called self join.
+
+In self join we need to create two table alias for same table.
+
+ex:
+	select e1.eid,e1.ename,e1.esal,e2.job,e2.comm from emp e1,emp e2
+	where(e1.deptno=e2.deptno); // 6 + 6 = 12 records 
+
+
+4) Cartisian product
+-----------------
+It will return all possible combination.
+
+ex:
+	select e.eid,e.ename,e.esal,d.dname,d.dloc from emp e,dept d; // 6 * 4 = 24 records 
+
+
+5) Inner join 
+-------------
+Inner join is similar to equi join.
+
+INNER JOIN given by ANSI people.
+
+ANSI stands for American National Standard Institute.
+
+ex:
+
+	select e.eid,e.ename,e.esal,d.dname,d.dloc from emp e INNER JOIN dept d
+	ON(e.deptno=d.deptno);
+
+	select e.eid,e.ename,e.esal,d.dname,d.dloc from emp e JOIN dept d
+	ON(e.deptno=d.deptno);
+
+
+6) Outer join 
+-------------
+It is a extension of equi join.
+
+It will return matching as well as not matching records.
+
+A '+' symbol is a outer join operator.
+
+We have following list of outer join.
+
+i) Left outer join 
+------------------
+	SQL
+	----
+		select e.eid,e.ename,e.esal,e.deptno,d.deptno,d.dname,d.dloc from emp e,dept d
+		where(e.deptno=d.deptno(+));
+
+	ANSI
+	-----
+		select e.eid,e.ename,e.esal,e.deptno,d.deptno,d.dname,d.dloc 
+		from emp e LEFT OUTER JOIN dept d
+		ON(e.deptno=d.deptno);
+
+ii) right outer join 
+--------------------
+	SQL
+	----
+		select e.eid,e.ename,e.esal,e.deptno,d.deptno,d.dname,d.dloc from emp e,dept d
+		where(e.deptno(+)=d.deptno);
+
+	ANSI
+	-----
+		select e.eid,e.ename,e.esal,e.deptno,d.deptno,d.dname,d.dloc 
+		from emp e RIGHT OUTER JOIN dept d
+		ON(e.deptno=d.deptno);
+
+
+iii) full outer join 
+---------------------
+	ANSI
+	----
+		select e.eid,e.ename,e.esal,e.deptno,d.deptno,d.dname,d.dloc 
+		from emp e full OUTER JOIN dept d
+		ON(e.deptno=d.deptno);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

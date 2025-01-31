@@ -1,0 +1,329 @@
+Custom tags in JSP
+==================
+Tags which are created by the user based on the application requirements are called custom tags.
+ex:
+	<ihub:mytag />
+	<qt:javatag />
+	and etc.
+
+To create custom tags in JSP we need to use taglib directive.
+
+syntax:
+	<%@taglib  uri="locationoftaglib"  prefix="prefixoftaglib" %>
+
+All the tag information we need to configure inside TLD file.
+
+TLD stands for Tag Library Descriptor.
+
+
+Deployment Directory structure 
+-------------------------------
+JspApp10
+|
+|---Java Resources
+|	|
+	|------src
+		|
+		|---com.ihub.www
+			|
+			|---CubeNumber.java
+|---Webcontent
+	|
+	|---process.jsp
+	|
+	|---WEB-INF
+		|
+		|------web.xml 
+		|------mytags.tld
+		|
+		|------lib
+			|
+			|---jsp-api.jar
+Note:
+-----
+In above application we need to add "servlet-api.jar" and "jsp-api.jar" file in project build path.
+
+Copy and paste "jsp-api.jar" file inside "WEB-INF/lib" folder seperately.
+
+
+process.jsp
+------------
+<%@taglib uri="/WEB-INF/mytags.tld" prefix="ihub" %>
+
+Cube of a given number :  <ihub:cube  number="5"/>
+
+web.xml
+---------
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  
+  <welcome-file-list>
+  	<welcome-file>process.jsp</welcome-file>
+  </welcome-file-list>
+  
+</web-app>
+
+CubeNumber.java
+----------------
+package com.ihub.www;
+
+import javax.servlet.jsp.JspException;
+import javax.servlet.jsp.JspWriter;
+import javax.servlet.jsp.tagext.TagSupport;
+
+public class CubeNumber extends TagSupport
+{
+	private int number;
+	
+	public void setNumber(int number)
+	{
+		this.number=number;
+	}
+	
+	public int doStartTag()throws JspException
+	{
+		JspWriter out=pageContext.getOut();
+		try
+		{
+			out.println(number*number*number);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		return SKIP_BODY;
+	}
+}
+
+
+mytags.tld
+-------------
+<?xml version="1.0" encoding="ISO-8859-1" ?>  
+<!DOCTYPE taglib  
+        PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"  
+    "http://java.sun.com/j2ee/dtd/web-jsptaglibrary_1_2.dtd">  
+  
+
+<taglib>  
+  
+  <tlib-version>1.0</tlib-version>  
+  <jsp-version>1.2</jsp-version>  
+  <short-name>simple</short-name>  
+  <uri>http://tomcat.apache.org/example-taglib</uri>  
+  
+  <tag>
+  	<name>cube</name>
+  	<tag-class>com.ihub.www.CubeNumber</tag-class>
+  	<attribute>
+  		<name>number</name>
+  		<required>true</required>
+  	</attribute>
+  </tag>	  
+ 
+</taglib>  
+
+Request url
+----------
+	http://localhost:2525/JspApp10/
+
+
+Implicit objects in JSP
+========================
+Object which can be used directly without any configuration is called implicit object.
+
+All implicit objects are created by the web container which are available for every JSP page.
+
+JSP gives nine implicit objects as follow.
+
+ex:
+	Object		Type
+	-----		------
+	out		JspWriter 
+	request		HttpServletRequest 
+	response 	HttpServletResponse 
+	config		ServletConfig
+	application	ServletContext 
+	session		HttpSession
+	pageContext	pageContext
+	exception	Throwable 
+	page		Object 
+
+
+response object
+===============
+It is an implicit object of type HttpServletResponse.
+
+It is created by the web container.
+
+It can be used to add or manipulate response such as redirect response to another resource, send error etc.
+
+Deployment Directory Structure 
+------------------------------
+JspApp11
+|
+|---Java Resources
+|
+|---Webcontent
+	|
+	|---index.html 
+	|---process.jsp
+	|
+	|---WEB-INF
+		|
+		|--web.xml 
+Note:
+-----
+In above application we need to add "servlet-api.jar" file in project build path.
+
+index.html
+---------
+<center>
+	<h1>
+		<a href="process.jsp"> Facebook </a>
+	</h1>
+</center>
+
+web.xml
+-------
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  
+  <welcome-file-list>
+  	<welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+  
+</web-app>
+
+process.jsp
+-----------
+<%
+	response.sendRedirect("http://www.facebook.com/login");
+%>
+
+Request url
+---------
+	http://localhost:2525/JspApp11/
+
+config object
+================
+It is a implicit object of type ServletConfig.
+
+It is created by the web container.
+
+It is used to read initialized parameters from perticular JSP.
+
+
+Deployment Directory Structure 
+-------------------------------
+JspApp12
+|
+|---Java Resources
+|
+|---Webcontent
+	|
+	|---process.jsp 
+	|
+	|---WEB-INF
+		|
+		|---web.xml 
+Note:
+-----
+In above application we need to add "servlet-api.jar" file in project build path.
+
+process.jsp
+-----------
+
+<%
+	String value=config.getInitParameter("driver");
+	out.println(value);
+%>
+
+web.xml
+---------
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  
+  <servlet>
+  	<servlet-name>ABC</servlet-name>
+  	<jsp-file>/process.jsp</jsp-file>
+  	<init-param>
+  		<param-name>driver</param-name>
+  		<param-value>oracle.jdbc.driver.OracleDriver</param-value>
+  	</init-param>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ABC</servlet-name>
+  	<url-pattern>/test</url-pattern>
+  </servlet-mapping>
+  
+</web-app>
+
+Request url
+----------
+	http://localhost:2525/JspApp12/test
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

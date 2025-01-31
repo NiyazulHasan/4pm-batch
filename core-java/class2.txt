@@ -1,0 +1,94 @@
+Q) What is the difference between Java and Python ? 
+
+Python						Java
+-----						------
+It is developed by Guido Van Rossum.		It is developed by James Gosling.
+
+It is a product of Microsoft.			It is a product of Oracle Corporation.
+
+It is a scripting language.			It is a object oriented programming language.
+
+It is a interpreted language.			It is a compiled language.
+
+It contains PVM.				It contains JVM.
+(Python Virtual Machine)			(Java Virtual Machine)
+
+It is a dynamically typed language.		It is a statically typed language.
+
+Performance is low.				Performance is high.
+
+There is less security.				It is highly secured.
+
+
+
+Q) What is the difference between JDK, JRE and JVM?
+
+JDK
+----
+JDK stands for Java Development Kit.
+JDK is a installable software which consist Java Runtime Environment (JRE), Java Virtual Machine (JVM), compiler (javac), interpreter (java), an archiever (.jar), document generator (javadoc) and other tools needed for java application development.
+
+JRE
+----
+JRE stands for Java Runtime Environment.
+It provides very good environment to run java applications only.
+
+JVM
+----
+JVM stands for Java Virtual Machine.
+JVM is an interpreter which is used to execute our program line by line procedure.
+
+
+Diagram: introduction2.1
+
+
+
+Q) Java is a platform indepdent or dependent?
+
+	It is independent
+
+
+
+
+Q) JVM is platform dependent or independent?
+
+	It is dependent 
+
+
+
+
+Q) How many modules are there in java?
+
+We have three modules in java.
+
+1) JSE/J2SE (Java Standard Edition)
+
+2) JEE/J2EE (Java Enterprise Edition)
+
+3) JME/J2ME (Java Micro Edition)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+						

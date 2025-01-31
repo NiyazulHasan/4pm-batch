@@ -1,0 +1,242 @@
+Abstraction
+============
+Hiding internal implementation and highlighting the set of services is called abstraction.
+
+Using abstract classes and interfaces we can implements abstraction.
+
+The best of abstraction is GUI ATM machine where bank people will hide internal implementation and highlights the set of services like banking, withdrawl, mini statement and etc.
+
+The main advantages of abstraction are.
+
+1) It gives security because it will hide internal implementation.
+
+2) Enhancement becomes more easy because without effecting enduser they can perform any changes 
+   in our internal system.
+
+3) It provides flexibility to the enduser to use the system.
+
+4) It improves maintainability of an application.
+
+Encapsulation
+===============
+The process of encapsulating or grouping variables and it's associate methods in a single entity is called encapsulation.
+
+Diagram: class21.1
+
+A class is said to be encapsulated class if it supports data hiding and abstraction.
+
+Abstraction is used to hide the data and encapsulation is used to protect the data.
+
+In encapsulation for every variable we need to write setter and getter method.
+
+Diagram: class21.2
+
+The main advantages of encapsulation are.
+
+1) It gives security.
+
+2) Enhancement becomes more easy.
+
+3) It provides flexibility to the enduser to use the system.
+
+4) It improves maintainability of an application.
+
+The main disadvantage of encapsulation is , it will increase length of our code and slow down the execution process.
+
+ex
+---
+class Student 
+{
+	private int studId;
+	private String studName;
+	private double studFee;
+	
+	//setter methods
+	public void setStudId(int studId)
+	{
+		this.studId=studId;
+	}
+	public void setStudName(String studName)
+	{
+		this.studName=studName;
+	}
+	public void setStudFee(double studFee)
+	{
+		this.studFee=studFee;
+	}
+	
+	//getter methods
+	public int getStudId()
+	{
+		return studId;
+	}
+	public String getStudName()
+	{
+		return studName;
+	}
+	public double getStudFee()
+	{
+		return studFee;
+	}
+}
+class Test 
+{
+	public static void main(String[] args)
+	{
+		Student s=new Student();
+		s.setStudId(101);
+		s.setStudName("Alan Morries");
+		s.setStudFee(1000d);
+		
+		System.out.println("Student Id : "+s.getStudId());
+		System.out.println("Student Name : "+s.getStudName());
+		System.out.println("Student Fee : "+s.getStudFee());
+	}
+}
+
+ex:
+---
+import java.util.Scanner;
+class Student 
+{
+	private int studId;
+	private String studName;
+	private double studFee;
+	
+	//setter methods
+	public void setStudId(int studId)
+	{
+		this.studId=studId;
+	}
+	public void setStudName(String studName)
+	{
+		this.studName=studName;
+	}
+	public void setStudFee(double studFee)
+	{
+		this.studFee=studFee;
+	}
+	
+	//getter methods
+	public int getStudId()
+	{
+		return studId;
+	}
+	public String getStudName()
+	{
+		return studName;
+	}
+	public double getStudFee()
+	{
+		return studFee;
+	}
+}
+class Test 
+{
+	public static void main(String[] args)
+	{
+		Scanner sc=new Scanner(System.in);
+		
+		System.out.println("Enter the student Id :");
+		int id=sc.nextInt();
+		
+		sc.nextLine();
+		
+		System.out.println("Enter the student Name :");
+		String name=sc.nextLine();
+		
+		System.out.println("Enter the student Fee :");
+		double fee=sc.nextDouble();
+		
+		Student s=new Student();
+		s.setStudId(id);
+		s.setStudName(name);
+		s.setStudFee(fee);
+		
+		System.out.println("Student Id : "+s.getStudId());
+		System.out.println("Student Name : "+s.getStudName());
+		System.out.println("Student Fee : "+s.getStudFee());
+	}
+}
+
+
+
+Is-A relationship
+================
+Is-A relationship is also known as inheritance.
+
+Using extends keyword we can implements Is-A relationship.
+
+The main objective of Is-A relationship is to provide reusability.
+
+ex:
+---
+class Parent 
+{
+	public void m1()
+	{
+		System.out.println("M1-Method");
+	}
+}
+class Child extends Parent 
+{
+	public void m2()
+	{
+		System.out.println("M2-Method");
+	}
+}
+class Test 
+{
+	public static void main(String[] args)
+	{
+		Parent p=new Parent();
+		p.m1();
+		
+		Child c=new Child();
+		c.m1();
+		c.m2();
+		
+		Parent p1=new Child();
+		p1.m1();
+		
+		//Child c1=new Parent();// C.T.E 
+	}
+}
+
+
+Conclusion 
+----------
+Whatever our parent having properties it comes to child.
+But whatever our child having properties it never goes back to parent.
+
+A parent reference can hold child object.
+But child reference can't hold parent object.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

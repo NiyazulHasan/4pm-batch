@@ -1,0 +1,299 @@
+2) Multiple row sub query
+=========================
+If a sub query returns more then one row is called multiple row sub query.
+
+To perform multiple row sub query we need to use multiple row operator.
+
+We have three multiple row operators.
+
+i) ANY 
+
+ii) ALL 
+
+iii) IN 
+
+i) ANY
+------
+	select * from emp where esal > ANY (select esal from emp where deptno=10);
+
+	select * from emp where esal < ANY (select esal from emp where deptno=10);
+
+ii) ALL
+-------
+	select * from emp where esal > ALL (select esal from emp where deptno=10);
+
+iii) IN
+-------
+	 select * from emp where esal IN  (select esal from emp where deptno=10);
+
+
+
+3) Multiple column sub query
+============================
+If a sub query returns more then one column is called multiple column sub query.
+
+ex:
+
+	select * from emp where(eid,ename,esal) IN (select eid,ename,esal from emp where eid=201);
+
+	select * from emp where(eid,ename,esal) IN (select eid,ename,esal from emp);
+
+	select eid,ename,esal from emp where(eid,ename,esal) IN (select eid,ename,esal from emp);
+
+Q) What is the difference between RDBMS and MongoDB? 
+
+RDBMS						MongoDB
+-----------					----------
+It is a relational database.			It is a non-relational database or document based.
+
+It does not store the data in key and value	It stores the datea in key and value pair. 
+pair.
+
+It is not suitable for hierarchical data.	It is suitable for hierarchical data.'
+
+It contains tables.				It contains collections.
+
+It is row based.				It is document based.
+
+It is column based.				It is field based.
+
+It supports SQL query language.			It supports JSON query language.
+
+It is slower.					It is faster.
+
+
+PL/SQL
+=======
+PL/SQL stands for Procedural language extension to Structured Query Language.
+
+PL/SQL is a extension of SQL and it contains following features.
+
+1) We can achieve programming features like control statements , loops and etc.
+
+2) It reduces network traffic.
+
+3) We can display our own error message by the concept of exception handling.
+
+4) We can related operations by using the concept of triggers.
+
+5) We can save the source code permenently to database for repeated execution.
+
+PL/SQL block
+============
+A PL/SQL program is also known as PL/SQL block.
+
+syntax:
+	DECLARE
+	-
+	-	// Declaration Section 
+	-
+	BEGIN
+	-
+	-	// Executable Section 
+	-
+	EXCEPTION 
+	-
+	-	// Exception Section 
+	-
+	END;
+	/
+
+Declaration Section 
+---------------------
+Declaration section contains declaration of variables, cursors, exceptions and etc.
+It is optional section.
+
+Executable Section 
+-------------------
+It contains actual logic of a program, which is used to complete a table.
+It is mandatory section.
+
+Exception Section 
+-----------------
+This section will execute when there is a exception in a program.
+It is optional section.
+
+
+To see the output in PL/SQL we need to set server output environment.
+
+ex:
+	SQL> set   serveroutput  on 
+
+
+
+Q) Write a PL/SQL program to display hello world?
+
+	BEGIN
+	DBMS_OUTPUT.PUT_LINE('Hello World');
+	END;
+	/
+
+	Here '/' is used to submit the PL/SQL program in a database.
+
+
+Q) Write a PL/SQL program to perform sum of two numbers?
+
+	DECLARE 
+	A number;
+	B number;
+	C number;
+	BEGIN
+	A:=10;
+	B:=20;
+	C:=A+B;
+	DBMS_OUTPUT.PUT_LINE(C);
+	END;
+	/
+
+Declaration and Initialization using single line.
+
+ex:
+	DECLARE 
+	A number:=10;
+	B number:=20;
+	C number:=A+B;
+	BEGIN
+	DBMS_OUTPUT.PUT_LINE(C);
+	END;
+	/
+
+
+Using '&' symbol we can read dynamic inputs.
+
+ex:
+	DECLARE 
+	A number(3);
+	B number(3);
+	C number(6);
+	BEGIN
+	A:=&a;
+	B:=&b;
+	C:=A+B;
+	DBMS_OUTPUT.PUT_LINE('sum of two numbers is '||C);
+	END;
+	/
+	
+
+
+Using PL/SQL we can perform DML operations.
+
+Q) Write a PL/SQL program to update student name based on student number?
+
+	DECLARE 
+	L_sno number(3);
+	BEGIN
+	L_sno:=&sno;
+	update student set sname='raja' where sno=L_sno;
+	DBMS_OUTPUT.PUT_LINE('Record Updated');
+	END;
+	/
+
+Q) Write a PL/SQL program to insert student record into student table?
+
+	BEGIN
+	insert into student values(103,'ramana','vizag');
+	DBMS_OUTPUT.PUT_LINE('Record Inserted');
+	END;
+	/
+
+
+Q) Write a PL/SQL program to delete student record based on student number?
+	
+	DECLARE 
+	L_sno number(3);
+	BEGIN
+	L_sno:=&sno;
+	delete from student where sno=L_sno;
+	DBMS_OUTPUT.PUT_LINE('Record Deleted');
+	END;
+	/
+
+
+Interview Question
+===================
+Q) Write a java program to display butterfly loop pattern?
+
+class Test  
+{
+	public static void main(String[] args) 
+	{
+		int rows=4;
+
+		for(int i=1;i<=rows;i++)
+		{
+			//left side 
+			for(int j=1;j<=i;j++)
+			{
+				System.out.print("* ");
+			}
+
+			//space 
+			for(int j=1;j<=(rows-i)*2;j++)
+			{
+				System.out.print("  ");
+			}
+
+			//right side 
+			for(int j=i;j>=1;j--)
+			{
+				System.out.print("* ");
+			}
+
+			//new line
+			System.out.println();
+		}
+		for(int i=rows-1;i>=1;i--)
+		{
+			//left side 
+			for(int j=1;j<=i;j++)
+			{
+				System.out.print("* ");
+			}
+
+			//space 
+			for(int j=1;j<=(rows-i)*2;j++)
+			{
+				System.out.print("  ");
+			}
+
+			//right side 
+			for(int j=i;j>=1;j--)
+			{
+				System.out.print("* ");
+			}
+
+			//new line
+			System.out.println();
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

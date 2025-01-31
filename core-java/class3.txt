@@ -1,0 +1,190 @@
+Java
+=====
+Version		:	Java 8 
+
+Software	:	JDK 11
+
+Creator		:	James Gosling 
+
+Vendor		:	Oracle Corporation 
+
+Open source	:	Open source 
+
+website		:	www.oracle.com/in/java/
+
+Tutorials	:	www.javatpoint.com
+			www.javaus.com
+			www.tutorialspoint.com
+			www.dzone.com
+			and etc.
+
+Download link	:	
+
+https://drive.google.com/file/d/1GtRLHXK4y3s97BH2UcYiJPNBaROR1DBV/view?usp=drive_link
+
+
+
+
+Steps to setup environmental variables
+=======================================
+step1:
+-----
+	Make sure JDK 11 installed successfully.
+
+step2:
+-----
+	Copy "lib" directory from java_home folder.
+	ex:
+		C:\Program Files\Java\jdk-11\lib
+
+step3:
+-----
+	Paste "lib" directory in environmental variables.
+	ex:
+		Right click to This PC --> properties --> advanced system settings -->
+		Environmental variables --> User variables --> click new button -->
+		
+		variable name : CLASSPATH
+		variable value : C:\Program Files\Java\jdk-11\lib; -->ok.
+
+		system variables --> click new button -->
+
+		variable name :  path 
+		variable value : C:\Program Files\Java\jdk-11\bin; -->ok --> ok --> ok.
+
+step4:
+-----
+	Execute below commands to check environmental variables done perfectly or not.
+	ex:
+		cmd> javap
+		cmd> java -version 
+
+
+
+Steps to develop first application in java
+============================================
+step1:
+------
+	Make sure JDK 11 installed successfully.
+
+step2:
+------
+	Make sure environmental setup done perfectly.
+
+step3:
+-----
+	Create a "javaprog" folder in 'D' drive.
+
+step4:
+------
+	Open the notepad and develop Hello World program.
+	ex:
+		class Test
+		{
+			public static void main(String[] args)
+			{
+				System.out.println("Hello World");
+			}
+		}
+
+step5:
+------
+	Save above program with same name as class name inside javaprog folder.
+	
+step6:
+-----
+	Open the command prompt from javaprog location.
+
+
+step7:
+-----
+	Compile above program we by using below command.
+	ex:
+		javac   Test.java
+			   |
+			filename 
+
+step8:
+-------
+	Execute above program by using below command.
+	ex:
+		java   Test 
+			|
+			classname	
+
+
+Interview Question
+===================
+Q) Jack and John both are best friends in a town.Both study in a same school in their town.One day while to going to school Jack and John saw a begger.They decided to help that needy person.So Jack gave 100 rupees from his pocket and John gave 50 rupees from his bag.Write a java program to calcaulate total contribution done for poor guy?
+
+class Test
+{
+	public static void main(String[] args)
+	{
+		int a=100;
+		int b=50;
+		System.out.println(a+b);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

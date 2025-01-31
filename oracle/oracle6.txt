@@ -1,0 +1,366 @@
+Integrity constraints
+======================
+Constraints are the rules which are applied on a table.
+
+Using constraints we can achieve accuracy and quality of data.
+
+We have following list of constraints.
+
+1) NOT NULL
+
+2) UNIQUE
+
+3) PRIMARY KEY 
+
+4) FOREIGN KEY 
+
+5) CHECK 
+
+Constraints are created at two levels.
+
+i) column level
+
+ii) table level 
+
+
+1) NOT NULL
+----------
+NOT NULL constraint does not allow null values.
+
+NOT NULL constraint can accept duplicate values.
+
+NOT NULL constraint can be created at column level.
+
+
+column level
+------------
+
+ex:
+--
+drop table student;
+
+create table student(sno number(3) NOT NULL,sname varchar2(10),sadd varchar2(12));
+
+insert into student values(101,'raja','hyd');
+
+insert into student values(101,'ravi','delhi');
+
+insert into student values(null,'ramana','vizag'); //invalid 
+
+commit;
+
+
+
+2) UNIQUE
+-----------
+UNIQUE constraint does not allow duplicates.
+
+UNIQUE constraint allows null values.
+
+UNIQUE constraint can be created at column level and table level.
+
+
+column level
+------------
+ex:
+--
+drop table student;
+
+create table student(sno number(3) UNIQUE,sname varchar2(10),sadd varchar2(12));
+
+insert into student values(101,'raja','hyd');
+
+insert into student values(101,'ravi','delhi'); //invalid 
+
+insert into student values(null,'ramana','vizag');  
+
+commit;
+
+
+table level
+------------
+ex:
+--
+drop table student;
+
+create table student(sno number(3),sname varchar2(10),sadd varchar2(12),UNIQUE(sno));
+
+insert into student values(101,'raja','hyd');
+
+insert into student values(101,'ravi','delhi'); //invalid 
+
+insert into student values(null,'ramana','vizag');  
+
+commit;
+
+
+3) PRIMARY KEY 
+---------------
+PRIMARY KEY is a combination of NOT NULL and UNIQUE.
+
+It does not allow duplicates and null values.
+
+A table can have only one primary key.
+
+primary key can be created at column level and table level.
+
+
+column level
+-------------
+ex:
+--
+drop table student;
+
+create table student(sno number(3) primary key,sname varchar2(10),sadd varchar2(12));
+
+insert into student values(101,'raja','hyd');
+
+insert into student values(101,'ravi','delhi'); //invalid 
+
+insert into student values(null,'ramana','vizag'); //invalid
+
+commit;
+
+table level
+----------
+ex:
+--
+drop table student;
+
+create table student(sno number(3) ,sname varchar2(10),sadd varchar2(12),primary key(sno));
+
+insert into student values(101,'raja','hyd');
+
+insert into student values(101,'ravi','delhi'); //invalid 
+
+insert into student values(null,'ramana','vizag'); //invalid
+
+commit;
+
+
+4) FOREIGN KEY 
+--------------
+Foreign is used to establish the relationship between two tables.
+
+This relationship is called parent and child relationship or master and detailed relationship.
+
+To establish the relationship a parent table must have primary key or unique key and child table must have foreign key.
+
+A foreign key will accept only those values which are present in primary key.
+
+A foreign key and primary key column name may or may not match but datatype must match.
+
+A foreign key can accept duplicates and null values.
+
+Diagram: oracle6.1
+
+
+college table
+-------------
+drop table college;
+
+create table college(sno number(3) primary key,sname varchar2(10),sadd varchar2(12));
+
+insert into college values(101,'raja','hyd');
+
+insert into college values(102,'ravi','delhi');
+
+insert into college values(103,'ramana','vizag');
+
+commit;
+
+
+library table
+--------------
+drop table library;
+
+create table library(roll_no number(3) REFERENCES college(sno), book_name varchar2(10));
+
+insert into library values(101,'java');
+
+insert into library values(102,'oracle');
+
+insert into library values(103,'html');
+
+insert into library values(103,'css');
+
+insert into library values(null,'js');
+
+insert into library values(104,'hibernate'); //invalid 
+
+commit;
+
+
+In order to drop the tables we need to drop library table then college table.
+ex:
+	drop table library;
+	drop table college;
+
+
+5) CHECK 
+---------
+Check is used to describe domain of a column.
+
+Here domain means what type of value a column must accept.
+
+Check constraint can be created at column level and table level.
+
+
+column level
+------------
+drop table student;
+
+create table student(sno number(3),sname varchar2(10),smarks number(3) check(smarks<=100));
+
+insert into student values(101,'raja',98);
+
+insert into student values(102,'ravi',100);
+
+insert into student values(103,'ramana',999); //invalid 
+
+commit;
+
+
+
+column level
+------------
+drop table student;
+
+create table student(sno number(3),sname varchar2(10),smarks number(3) check(smarks between 0 AND 100));
+
+insert into student values(101,'raja',98);
+
+insert into student values(102,'ravi',100);
+
+insert into student values(103,'ramana',999); //invalid 
+
+commit;
+
+
+column level
+------------
+drop table student;
+
+create table student(sno number(3),sname varchar2(10) check(sname=lower(sname)),smarks number(3));
+
+insert into student values(101,'raja',98);
+
+insert into student values(102,'RAVI',100); //invalid 
+
+insert into student values(103,'RaMaNa',999); //invalid 
+commit;
+
+
+column level
+------------
+drop table student;
+
+create table student(sno number(3),sname varchar2(10) check(sname=upper(sname)),smarks number(3));
+
+insert into student values(101,'raja',98); //invalid 
+
+insert into student values(102,'RAVI',100); //valid 
+
+insert into student values(103,'RaMaNa',999); //invalid 
+commit;
+
+
+table level
+------------
+drop table student;
+
+create table student(sno number(3),sname varchar2(10) ,smarks number(3), check(sname=upper(sname)));
+
+insert into student values(101,'raja',98); //invalid 
+
+insert into student values(102,'RAVI',100); //valid 
+
+insert into student values(103,'RaMaNa',999); //invalid 
+commit;
+
+
+Q) Write a query to add constraint to a existing table?
+
+	alter table emp add primary key(eid);
+
+
+Q) Write a query to remove constraint from existing table?
+
+	alter table emp drop primary key;
+
+
+
+Pseudo Columns
+===============
+A column which is not real is called pseudo.
+We have two pseudo columns.
+1) ROWNUM
+2) ROWID 
+
+1) ROWNUM
+---------
+It always starts with 1 and increment by 1.
+
+ROWNUM values are temperory.
+ 
+ex:
+	select eid,ename,esal from emp;
+	select rownum,eid,ename,esal from emp;
+
+2) ROWID 
+----------
+It is a memory address in which our records are stored.
+
+ROWID is a hexa value and it is permanent.
+
+ex:
+	select rownum,eid,ename,esal from emp;
+	select rowid,rownum,eid,ename,esal from emp;
+
+
+
+Q)Write a query to display first three records from emp table?
+
+
+	select * from emp where rownum<=3;
+
+
+
+q) Write a query to display fourth record from emp table?
+
+	select * from emp where rownum<=4
+	minus
+	select * from emp where rownum<=3;
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

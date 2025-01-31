@@ -1,0 +1,615 @@
+Java 8 Features
+================
+
+Functional interface
+=====================
+Interface which contains only one abstract method is called functional interface.
+
+It can have any number of default methods and static methods.
+
+It is also known as Single Abstract Method or SAM interface.
+
+The main objective of functional interface is to achieve functional programming.
+
+ex:
+	a = f1(){}
+
+	f1(f2(){})
+	{
+	}
+
+@FunctionalInterface annotation is used to declare a functional interface which is optional.
+
+ex:
+---
+@FunctionalInterface
+interface A 
+{
+	public abstract void m1();
+}
+class B implements A 
+{
+	public void m1()
+	{
+		System.out.println("M1-Method");
+	}
+}
+class Test 
+{
+	public static void main(String[] args)
+	{
+		A a=new B();
+		a.m1();
+	}
+}
+
+ex:
+---
+@FunctionalInterface
+interface A 
+{
+	public abstract void m1();
+}
+class Test 
+{
+	public static void main(String[] args)
+	{
+		A a = new A()
+		{
+			public void m1()
+			{
+				System.out.println("From M1 Method");
+			}
+		};
+		a.m1();
+	}
+}
+
+Lamda Expression
+==================
+Lamda expression introduced in Java 8.
+
+Lamda expression is used to concise the code.
+
+Lamda expression we can use when we have functional interface.
+
+Lamda expression consider as method not a class.
+
+The main objective of lamda expression is to achieve functional programming.
+
+Lamda expression does not allow name, returntype and modifier.
+ex:
+	Java Method
+	------------
+		public void m1()
+		{
+			System.out.println("Hello");
+		}
+
+	Lamda Expression
+	----------------
+		()->
+		{
+			System.out.println("Hello");
+		};
+
+ex:
+---
+@FunctionalInterface
+interface A 
+{
+	public abstract void m1();
+}
+class Test 
+{
+	public static void main(String[] args)
+	{
+		A a=()->
+			{
+				System.out.println("Hello");
+			};
+			
+		a.m1();
+	}
+}
+
+ex:
+---
+@FunctionalInterface
+interface A 
+{
+	public abstract void m1(int i,int j);
+}
+class Test 
+{
+	public static void main(String[] args)
+	{
+		A a=(int i,int j)->
+			{
+				System.out.println(i+j);
+			};
+			
+		a.m1(10,20);
+	}
+}
+
+ex:
+---
+@FunctionalInterface
+interface A 
+{
+	public abstract int m1(int i,int j);
+}
+class Test 
+{
+	public static void main(String[] args)
+	{
+		A a=(int i,int j)->
+			{
+				return i+j;
+			};
+			
+		System.out.println(a.m1(20,30));
+	}
+}
+
+default methods in interface
+===========================
+Java provides facility to declare default methods in interface.
+
+If we declare any method in interface and tagged with default keyword is called default method.
+
+Default method is a non-abstract method.
+
+Default method can be override.
+
+ex:
+---
+@FunctionalInterface
+interface A 
+{
+	//abstract method
+	public abstract void m1();
+	
+	//default method
+	default void m2()
+	{
+		System.out.println("M2-Method");
+	}
+}
+class B implements A 
+{
+	public void m1()
+	{
+		System.out.println("M1-Method");
+	}
+}
+class Test 
+{
+	public static void main(String[] args)
+	{
+		A a=new B();
+		a.m1();
+		a.m2();
+	}
+}
+
+ex:
+---
+@FunctionalInterface
+interface A 
+{
+	//abstract method
+	public abstract void m1();
+	
+	//default method
+	default void m2()
+	{
+		System.out.println("M2-Method");
+	}
+}
+class B implements A 
+{
+	public void m1()
+	{
+		System.out.println("M1-Method");
+	}
+	
+	public void m2()
+	{
+		System.out.println("M2-Method Override");
+	}
+}
+class Test 
+{
+	public static void main(String[] args)
+	{
+		A a=new B();
+		a.m1();
+		a.m2();
+	}
+}
+
+To achieve multiple inheritance in java we need to use default methods of an interface.
+
+ex:
+---
+interface Right 
+{
+	default void m1()
+	{
+		System.out.println("Right-M1");
+	}
+}
+interface Left
+{
+	default void m1()
+	{
+		System.out.println("Left-M1");
+	}
+}
+class Middle implements Right,Left 
+{
+	public void m1()
+	{
+		System.out.println("Middle-M1 Method");
+	}
+}
+class Test 
+{
+	public static void main(String[] args)
+	{
+		Middle m=new Middle();
+		m.m1();
+	}
+}
+
+ex:
+---
+interface Right 
+{
+	default void m1()
+	{
+		System.out.println("Right-M1");
+	}
+}
+interface Left
+{
+	default void m1()
+	{
+		System.out.println("Left-M1");
+	}
+}
+class Middle implements Right,Left 
+{
+	public void m1()
+	{
+		Right.super.m1();
+		Left.super.m1();
+	}
+}
+class Test 
+{
+	public static void main(String[] args)
+	{
+		Middle m=new Middle();
+		m.m1();
+	}
+}
+
+Static methods in interface
+========================
+Java provides facility to declare static methods in interface.
+
+If we declare any method in interface and tagged with static keyword is called static method.
+
+Static method is a non-abstract method.
+
+Static method can't be override.
+
+ex:
+---
+interface A 
+{
+	static void m1()
+	{
+		System.out.println("static-method");
+	}
+}
+class Test 
+{
+	public static void main(String[] args)
+	{
+		A.m1();
+	}
+}
+
+Stream API
+==========
+A Stream is an interface which is present in java.util.stream package.
+
+Stream API is used to perform bulk operations on Collections.
+
+Stream API is used to process objects in Collections.
+
+ex:
+---
+import java.util.*;
+import java.util.stream.*;
+class Test 
+{
+	public static void main(String[] args)
+	{
+		List<Integer> list=Arrays.asList(6,8,1,2,9,4);
+		
+		List<Integer> newList=list.stream().filter(i->i%2==0).collect(Collectors.toList());
+		
+		System.out.println(newList);
+	}
+}
+
+
+ex:
+---
+import java.util.*;
+import java.util.stream.*;
+class Test 
+{
+	public static void main(String[] args)
+	{
+		List<Integer> list=Arrays.asList(6,8,1,2,9,4);
+		
+		long count=list.stream().filter(i->i%2!=0).count();
+		
+		System.out.println(count);
+	}
+}
+
+ex:
+---
+import java.util.*;
+import java.util.stream.*;
+class Test 
+{
+	public static void main(String[] args)
+	{
+		List<Integer> list=Arrays.asList(6,8,1,2,9,4);
+		
+		List<Integer> newList=list.stream().map(i->i+10).collect(Collectors.toList());
+		
+		System.out.println(newList);
+	}
+}
+
+ex:
+---
+import java.util.*;
+import java.util.stream.*;
+class Test 
+{
+	public static void main(String[] args)
+	{
+		List<Integer> list=Arrays.asList(6,8,1,2,9,4);
+		
+		List<Integer> newList=list.stream().sorted().collect(Collectors.toList());
+		
+		System.out.println(newList);
+	}
+}
+
+ex:
+---
+import java.util.*;
+import java.util.stream.*;
+class Test 
+{
+	public static void main(String[] args)
+	{
+		List<Integer> list=Arrays.asList(6,8,1,2,9,4);
+		
+		List<Integer> newList=list.stream().sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+		
+		System.out.println(newList);
+	}
+}
+
+ex:
+---
+import java.util.*;
+import java.util.stream.*;
+class Test 
+{
+	public static void main(String[] args)
+	{
+		List<Integer> list=Arrays.asList(6,8,1,2,9,4);
+		
+		int min=list.stream().min((i1,i2)->i1.compareTo(i2)).get();
+		
+		System.out.println(min);
+	}
+}
+
+ex:
+---
+import java.util.*;
+import java.util.stream.*;
+class Test 
+{
+	public static void main(String[] args)
+	{
+		List<Integer> list=Arrays.asList(6,8,1,2,9,4);
+		
+		int max=list.stream().max((i1,i2)->i1.compareTo(i2)).get();
+		
+		System.out.println(max);
+	}
+}
+
+forEach() method
+================
+A forEach() method introduced in Java 8.
+
+It is used to iteration the objects from Collections.
+
+ex:
+
+
+import java.util.*;
+class Test 
+{
+	public static void main(String[] args)
+	{
+		List<Integer> list=Arrays.asList(6,8,1,2,9,4);
+		
+		list.forEach(element -> System.out.print(element+" "));
+	}
+}
+
+ex:
+---
+import java.util.*;
+class Test 
+{
+	public static void main(String[] args)
+	{
+		Map<Integer,String> map=new LinkedHashMap<Integer,String>();
+		map.put(1,"one");
+		map.put(2,"two");
+		map.put(3,"three");
+		
+		map.forEach((key,value)-> System.out.print(key+"="+value+" "));
+	}
+}
+
+Method Reference
+================
+Method reference introduced in Java 8.
+
+Method reference is a special type of lamda expression.
+
+ex:
+---
+import java.util.*;
+class Test 
+{
+	public static void main(String[] args)
+	{
+		List<Integer> list=Arrays.asList(6,8,1,2,9,4);
+		
+		list.forEach(System.out::println);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
